@@ -46,7 +46,7 @@ class Visualization extends React.Component {
 	componentDidMount() {
 		var config = {
 			container_id: this.props.id,
-			server_url: "bolt://localhost:7687",
+			server_url: "bolt://172.25.11.96:7687",
 			server_user: "neo4j",
 			server_password: "12345",
 			initial_cypher: this.props.query,
@@ -123,7 +123,7 @@ class Visualization extends React.Component {
         if (this.props.query !== prevProps.query) {
             var config = {
             container_id: this.props.id,
-            server_url: "bolt://localhost:7687",
+            server_url: "bolt://172.25.11.96:7687",
             server_user: "neo4j",
             server_password: "12345",
             initial_cypher: this.props.query,

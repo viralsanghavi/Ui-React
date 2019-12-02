@@ -46,7 +46,7 @@ class Visualization extends React.Component {
 	componentDidMount() {
 		var config = {
 			container_id: this.props.id,
-			server_url: "bolt://localhost:7687",
+			server_url: "bolt://172.25.11.96:7687",
 			server_user: "neo4j",
 			server_password: "12345",
 			initial_cypher: this.props.query,
@@ -127,7 +127,7 @@ class Visualization extends React.Component {
         if (this.props.query !== prevProps.query) {
             var config = {
             container_id: this.props.id,
-            server_url: "bolt://localhost:7687",
+            server_url: "bolt://172.25.11.96:7687",
             server_user: "neo4j",
             server_password: "12345",
             initial_cypher: this.props.query,
@@ -398,7 +398,7 @@ class Greeting extends React.Component {
           { invalid_query && <p>Please only search for Brokerage Members by Name or SEBI No.</p> }   
           <div className="card ">
             <div  className="Vis-container">
-                <Visualization query={"MATCH (a:AccountHolder)-[r1:HAS_ADDRESS]->(add:Address)<-[r2:HAS_ADDRESS]->(b:AccountHolder) OPTIONAL MATCH (a)-[r3:BUY_ORDER]->(s1:ShareDetail) OPTIONAL MATCH (b)-[r4:SELL_ORDER]->(s2:ShareDetail) WITH a, b, s1, s2, add,r1,r2,r3,r4 WHERE (s1.BuyingSharesOf = s2.SellingSharesOf) AND (5 > toInteger(split(s1.Trading_Date, '/')[0]) - toInteger(split(s2.Trading_Date,'/')[0]) > 0) RETURN a, b, s1, s2, add,r1,r2,r3,r4"} id="viz" />
+                <Visualization query={"Match (company1:Company)<-[r1:IS_MEMBER]-(client1:Client)-[r2:IS_SELLING]->(trade1:Trade), (trade1)-[r3:IS_TRADING]->(broker1:Broker),(company2:Company)<-[im2:IS_MEMBER]-(client2:Client)-[r4:IS_BUYING]->(trade2:Trade),(trade2)-[r5:IS_TRADING]->(broker2:Broker)Where trade1.Volume*0.9= trade2.Volume Return *"} id="viz" />
             </div>
            </div> 
       </div>

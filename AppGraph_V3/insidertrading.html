@@ -45,7 +45,7 @@ class Visualization extends React.Component {
 	componentDidMount() {
 		var config = {
 			container_id: this.props.id,
-			server_url: "bolt://localhost:7687",
+			server_url: "bolt://172.25.11.96:7687",
 			server_user: "neo4j",
 			server_password: "12345",
 			initial_cypher: this.props.query,
@@ -126,7 +126,7 @@ class Visualization extends React.Component {
         if (this.props.query !== prevProps.query) {
             var config = {
             container_id: this.props.id,
-            server_url: "bolt://localhost:7687",
+            server_url: "bolt://172.25.11.96:7687",
             server_user: "neo4j",
             server_password: "12345",
             initial_cypher: this.props.query,
@@ -397,7 +397,7 @@ class Greeting extends React.Component {
           { invalid_query && <p>Please only search for Brokerage Members by Name or SEBI No.</p> }   
           <div className="card ">
             <div  className="Vis-container">
-                <Visualization query={"MATCH (to:TradeOrder)<-[t:TRADE_ON]-(acc:AccountHolder)-[id:IS_DIRECTOR]->(com:company)-[e1:HAS_EVENT]->(e:EventABC)-[e2:HAS_EVENT1]->(b:EventABC1) WHERE(t.tradedate < b.Date)  RETURN *"} id="viz" />
+                <Visualization query={"Match (trade:Trade)<-[r1:IS_SELLING]-(client:Client)-[member:IS_MEMBER]->(company:Company),(company)-[corp:CORPORATE_EVENT]->(event1:Events),(event1)-[r2:HAS_ACTIONS]->(event:Event), (trade)-[r3:IS_TRADING]->(broker:Broker),(broker)-[r4:IS_BROKER]-(br_company:Brokercompany) Where (trade.Date)+duration({days: 8})=(event.Date)Return *"} id="viz" />
             </div>
            </div> 
       </div>
