@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -347,7 +348,6 @@ class Visualization extends React.Component {
         )
     }
 }
-
 class Greeting extends React.Component {
     constructor() {
     super()
@@ -464,9 +464,9 @@ class Greeting extends React.Component {
 	 if (this.state.query_field === 'sebi') {
 			this.setState({ query: queries.q7 })
 		}
-    else{
-        this.setState({ query: queries.q8 })
   }
+  else{
+    this.setState({ query: queries.q8 })
   }
 
 	 this.setState({ submission: this.state.submission + 1 })
@@ -517,7 +517,7 @@ class Greeting extends React.Component {
           { invalid_query && <p>Please only search for Brokerage Members by Name or SEBI No.</p> }   
           <div className="card ">
             <div  className="Vis-container">
-                <Visualization query={"Match (trade:Trade)<-[r1:IS_SELLING]-(client:Client)-[member:IS_MEMBER]->(company:Company),(company)-[corp:CORPORATE_EVENT]->(event1:Events),(event1)-[r2:HAS_ACTIONS]->(event:Event), (trade)-[r3:IS_TRADING]->(broker:Broker),(broker)-[r4:IS_BROKER]-(br_company:Brokercompany) Where (trade.Date)+duration({days: 8})=(event.Date)Return *"} id="viz" />
+                <Visualization query={"Match (n)-[a]->(b) return *"} id="viz" />
             </div>
            </div> 
       </div>
@@ -574,7 +574,7 @@ class Greeting extends React.Component {
             </li>
             <li class="nav-item">
               <a class="nav-link" href="WholeGraph.html">
-                <i class="nav-icon icon-drop"></i> All Data</a>
+                <i class="nav-icon icon-drop"></i>All Data</a>
             </li>
                 </ul>
               </nav>
