@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="de87bbe6-c9f2-4e93-9d79-aae7e6401cbe" name="Default Changelist" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Flask Main" />
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1TKQQ1MxT69hydcUq8lpPKWfWwb" />
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/templates" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/static" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Flask server.AppChat">
+    <configuration name="main.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/AppChat/templates/main.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <configuration name="AppChat" type="Python.FlaskServer">
+      <module name="AppChat" />
+      <option name="target" value="$PROJECT_DIR$/app.py" />
+      <option name="targetType" value="PATH" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JavaScript Debug.main.html" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="de87bbe6-c9f2-4e93-9d79-aae7e6401cbe" name="Default Changelist" comment="" />
+      <created>1573206288010</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1573206288010</updated>
+      <workItem from="1573206299967" duration="2075000" />
+      <workItem from="1573208406855" duration="1713000" />
+      <workItem from="1573211602637" duration="691000" />
+      <workItem from="1573213611056" duration="946000" />
+      <workItem from="1573301808749" duration="1763000" />
+      <workItem from="1573365427781" duration="615000" />
+      <workItem from="1573378545162" duration="1794000" />
+      <workItem from="1573380411510" duration="1790000" />
+      <workItem from="1573382285920" duration="1779000" />
+      <workItem from="1573384087875" duration="1672000" />
+      <workItem from="1573385897582" duration="1796000" />
+      <workItem from="1573388186661" duration="912000" />
+      <workItem from="1573413684924" duration="1840000" />
+      <workItem from="1573415630265" duration="1755000" />
+      <workItem from="1573417497417" duration="1436000" />
+      <workItem from="1573486538575" duration="1346000" />
+      <workItem from="1573562530234" duration="1789000" />
+      <workItem from="1573564342273" duration="1012000" />
+      <workItem from="1573565851558" duration="1756000" />
+      <workItem from="1573567638297" duration="1789000" />
+      <workItem from="1573616340687" duration="1794000" />
+      <workItem from="1573618279048" duration="599000" />
+      <workItem from="1573645313299" duration="78000" />
+      <workItem from="1573650073654" duration="1760000" />
+      <workItem from="1573651887755" duration="1778000" />
+      <workItem from="1573653695207" duration="1787000" />
+      <workItem from="1573660218996" duration="1790000" />
+      <workItem from="1573662096479" duration="1791000" />
+      <workItem from="1573664025129" duration="1782000" />
+      <workItem from="1573665872406" duration="1784000" />
+      <workItem from="1573667904061" duration="1235000" />
+      <workItem from="1573734642206" duration="673000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/app.py</url>
+          <line>254</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/app.py</url>
+          <line>213</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="Python.FlaskServer">
+        <watch expression="request.form" language="Python" />
+        <watch expression="request.form['submit']" language="Python" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/AppChat$AppChat.coverage" NAME="AppChat Coverage Results" MODIFIED="1573668543226" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+  </component>
+</project>
