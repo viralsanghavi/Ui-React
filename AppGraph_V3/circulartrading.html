@@ -52,76 +52,136 @@ class Visualization extends React.Component {
 			initial_cypher: this.props.query,
 			// arrows: true,
             labels: {
-                "Client_profile": {
-                    "caption": "first_name",    
-                },
-                "Brokerage_Members": {
-                    "caption": "name",    
-                },
-                "Authorized_Person": {
-                    "caption": "first_name",    
-                },
-                "Acc_summary": {
-                    "caption": "Bal",    
-                },
-                "address": {
-                    "caption": "street",    
-                },
-                "PAN": {
-                    "caption": "PAN_no",    
-                },
-                "phone": {
-                    "caption": "phone_number",    
-                },
-                "email": {
-                    "caption": "email_id",    
-                },
-                "Blacklist": {
-                    "caption": "type",    
-                },
-                "ShareDetail":{
-                    "caption":"name",
-                }
+                "Address": {
+              "caption": "first_name",
             },
-            relationships: {
-                "HAS_PAN": {
-                    "caption": false,
-                },
-                "HAS_EMAILID": {
-                    "caption": false,
-                },
-                "HASEMAIL_ID": {
-                    "caption": false,
-                },
-                "HAS_ADDRESS": {
-                   "caption": false,
-                },
-                "HAS_PHONE_NUMBER": {
-                    "caption": false,
-                },
-                "WORKS_FOR": {
-                    "caption": false,
-                },
-                "EMPLOYEE": {
-                    "caption": false,
-                },
-                "Acc_Sum": {
-                    "caption": false,
-                },
-                "CLIENT": {
-                    "caption": false,
-                },
-                "HAS_PHONENo": {
-                    "caption": false,
-                },
-                "Is_BlackListed": {
-                    "caption": false,
-                },
+            "Blacklist": {
+              "caption": "first_name",
             },
-		}
-		var viz = new NeoVis.default(config);
-    	viz.render();
-	}
+            "Broker": {
+              "caption": "first_name",
+            },
+            "Brokercompany": {
+              "caption": "first_name",
+            },
+            "Client": {
+              "caption": "first_name",
+            },
+            "Company": {
+              "caption": "first_name",
+            },
+            "DailyBalance": {
+              "caption": "first_name",
+            },
+            "Email": {
+              "caption": "first_name",
+            },
+            "Event": {
+              "caption": "first_name",
+            },
+            "Events": {
+              "caption": "first_name",
+            },
+            "Exchange Company": {
+              "caption": "first_name",
+            },
+            "FinancialOverview": {
+              "caption": "first_name",
+            },
+            "FundsBalance": {
+              "caption": "first_name",
+            },
+            "MonthlyBalance": {
+              "caption": "first_name",
+            },
+            "MonthlyTrade": {
+              "caption": "first_name",
+            },
+            "MonthlyTransaction": {
+              "caption": "first_name",
+            },
+            "Newsfeed": {
+              "caption": "first_name",
+            },
+            "Pan": {
+              "caption": "first_name",
+            },
+            "PhoneNumber": {
+              "caption": "first_name",
+            },
+            "SecurityBalance": {
+              "caption": "first_name",
+            },
+            "Trade": {
+              "caption": "first_name",
+            },
+            "Twitter": {
+              "caption": "first_name",
+            },
+          },
+          relationships: {
+            "CORPORATE_EVENT": {
+              "caption": false,
+            },
+            "FINANCIAL_HISTORY": {
+              "caption": false,
+            },
+            "HAS_ACTIONS": {
+              "caption": false,
+            },
+            "HAS_ADDRESS": {
+              "caption": false,
+            },
+            "HAS_BALANCE": {
+              "caption": false,
+            },
+            "HAS_EMAILID": {
+              "caption": false,
+            },
+            "HAS_MONTHLY_TRADE": {
+              "caption": false,
+            },
+            "HAS_MONTHLY_TRANSACTION": {
+              "caption": false,
+            },
+            "HAS_PAN_NO": {
+              "caption": false,
+            },
+            "HAS_PHONENUMBER": {
+              "caption": false,
+            },
+            "IS_BLACKLISTED": {
+              "caption": false,
+            },
+            "IS_BROKER": {
+              "caption": false,
+            },
+            "IS_BUYING": {
+              "caption": false,
+            },
+            "IS_MEMBER": {
+              "caption": false,
+            },
+            "IS_SELLING": {
+              "caption": false,
+            },
+            "IS_TRADING": {
+              "caption": false,
+            },
+            "THROUGH": {
+              "caption": false,
+            },
+            "TWEETS": {
+              "caption": false,
+            },
+            "UPDATES": {
+              "caption": false,
+            },
+          },
+        }
+        var viz = new NeoVis.default(config);
+        viz.render();
+      }
 
     componentDidUpdate(prevProps) {
         if (this.props.query !== prevProps.query) {
@@ -133,83 +193,143 @@ class Visualization extends React.Component {
             initial_cypher: this.props.query,
             // arrows: true,
             labels: {
-                "Client_profile": {
-                    "caption": "first_name",    
-                },
-                "Brokerage_Members": {
-                    "caption": "name",    
-                },
-                "Authorized_Person": {
-                    "caption": "first_name",    
-                },
-                "Acc_summary": {
-                    "caption": "Bal",    
-                },
-                "address": {
-                    "caption": "street",    
-                },
-                "PAN": {
-                    "caption": "PAN_no",    
-                },
-                "phone": {
-                    "caption": "phone_number",    
-                },
-                "email": {
-                    "caption": "email_id",    
-                },
-                "Blacklist": {
-                    "caption": "type",    
-                },
-                "AccountHolder": {
-                    "caption": "FirstName",    
-                },
-                
+           "Address": {
+                "caption": "first_name",
+              },
+              "Blacklist": {
+                "caption": "first_name",
+              },
+              "Broker": {
+                "caption": "first_name",
+              },
+              "Brokercompany": {
+                "caption": "first_name",
+              },
+              "Client": {
+                "caption": "first_name",
+              },
+              "Company": {
+                "caption": "first_name",
+              },
+              "DailyBalance": {
+                "caption": "first_name",
+              },
+              "DailyBalance": {
+                "caption": "first_name",
+              },
+              "Email": {
+                "caption": "first_name",
+              },
+              "Event": {
+                "caption": "first_name",
+              },
+              "Events": {
+                "caption": "first_name",
+              },
+              "Exchange Company": {
+                "caption": "first_name",
+              },
+              "FinancialOverview": {
+                "caption": "first_name",
+              },
+              "FundsBalance": {
+                "caption": "first_name",
+              },
+              "MonthlyBalance": {
+                "caption": "first_name",
+              },
+              "MonthlyTrade": {
+                "caption": "first_name",
+              },
+              "MonthlyTransaction": {
+                "caption": "first_name",
+              },
+              "Newsfeed": {
+                "caption": "first_name",
+              },
+              "Pan": {
+                "caption": "first_name",
+              },
+              "PhoneNumber": {
+                "caption": "first_name",
+              },
+              "SecurityBalance": {
+                "caption": "first_name",
+              },
+              "Trade": {
+                "caption": "first_name",
+              },
+              "Twitter": {
+                "caption": "first_name",
+              },
             },
             relationships: {
-                "HAS_PAN": {
-                    "caption": false,
-                },
-                "HAS_EMAILID": {
-                    "caption": false,
-                },
-                "HASEMAIL_ID": {
-                    "caption": false,
-                },
-                "HAS_ADDRESS": {
-                   "caption": false,
-                },
-                "HAS_PHONE_NUMBER": {
-                    "caption": false,
-                },
-                "WORKS_FOR": {
-                    "caption": false,
-                },
-                "EMPLOYEE": {
-                    "caption": false,
-                },
-                "Acc_Sum": {
-                    "caption": false,
-                },
-                "CLIENT": {
-                    "caption": false,
-                },
-                "HAS_PHONENo": {
-                    "caption": false,
-                },
-                "Is_BlackListed": {
-                    "caption": false,
-                },
-                    // "Is_BlackListed": {
-                //     "caption": false,
-                // },
-                
+              "CORPORATE_EVENT": {
+                "caption": false,
+              },
+              "FINANCIAL_HISTORY": {
+                "caption": false,
+              },
+              "HAS_ACTIONS": {
+                "caption": false,
+              },
+              "HAS_ADDRESS": {
+                "caption": false,
+              },
+              "HAS_BALANCE": {
+                "caption": false,
+              },
+              "Balance": {
+                "caption": false,
+              },
+              "HAS_EMAILID": {
+                "caption": false,
+              },
+              "HAS_MONTHLY_TRADE": {
+                "caption": false,
+              },
+              "HAS_MONTHLY_TRANSACTION": {
+                "caption": false,
+              },
+              "HAS_PAN_NO": {
+                "caption": false,
+              },
+              "HAS_PHONENUMBER": {
+                "caption": false,
+              },
+              "IS_BLACKLISTED": {
+                "caption": false,
+              },
+              "IS_BROKER": {
+                "caption": false,
+              },
+              "IS_BUYING": {
+                "caption": false,
+              },
+              "IS_MEMBER": {
+                "caption": false,
+              },
+              "IS_SELLING": {
+                "caption": false,
+              },
+              "IS_TRADING": {
+                "caption": false,
+              },
+              "THROUGH": {
+                "caption": false,
+              },
+              "TWEETS": {
+                "caption": false,
+              },
+              "UPDATES": {
+                "caption": false,
+              },
             },
+          }
+          var viz = new NeoVis.default(config);
+          viz.render();
         }
-        var viz = new NeoVis.default(config);
-        viz.render();
-        }
-    }
-
+      }
 
     render() {
         const style = {
@@ -228,7 +348,6 @@ class Visualization extends React.Component {
         )
     }
 }
-
 class Greeting extends React.Component {
     constructor() {
     super()
