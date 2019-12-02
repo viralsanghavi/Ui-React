@@ -1,0 +1,105 @@
+*{
+  font-family: 'Montserrat';
+  margin: 0;
+  padding: 0;
+}
+.App {
+  text-align: auto;
+}
+
+.App-logo {
+  height: 40vmin;
+}
+
+.App-header {
+  background-color:whitesmoke;
+  /* margin-top: 50px; */
+  /* background-color:  #fff; */
+  /* min-height: 100vh; */
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  justify-content: center;
+  color: rgb(5, 4, 4);
+}
+
+.App-link {
+  color: #09d3ac;
+}
+
+
+.Vis-container {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  background-color: ghostwhite;
+}
+/* #navbar{
+  background-color: #223c50;;
+  height: 65px;
+  padding : 20px;
+  padding-right: 20px ;
+  position: fixed; Set the navbar to fixed position
+  top: 0; Position the navbar at the top of the page
+  width: 100%; Full width */
+/* }
+#head-title{
+  background: url(/static/public/logo_white.png) ;
+  padding-left: 110px;
+  color: #fff;
+  padding-top: 5px;
+  background: url(/static/public/logo_white.png);
+} */
+/* #search-menu{
+  position: fixed;
+  width: 100%;
+  margin-top: 10%;
+  float: left;
+  margin-top: 0px;
+  padding: 0;
+  height: 50px;
+  overflow: hidden;
+  color: white;
+  padding: 14px ;
+  background-color: #333;
+} */
+
+/* #p-text{
+  font-weight: 400;
+  font-size: 2rem;
+} */
+/* 
+.head-title{
+  text-align: left;
+}
+/* #query-space{
+  padding-right: 23px;
+} */
+/* #query-text{
+  padding-left: 23px;
+  width: 10px;
+}
+
+#display-text{
+  margin-top: 5px;
+  margin-bottom: 5px;
+}  */
+/* label{
+  padding: 2px;
+} */
+/* select{
+  width: 196px;
+  padding-bottom: 0%;
+  margin-top: 5px;
+  margin-bottom: 5px;
+} */
+/* input{
+  margin-top: 5px ;
+} */
+/* #display-text{
+  font-size: 2rem;
+} */
+/* 
+.stored-query{
+  float: left;
+} */
