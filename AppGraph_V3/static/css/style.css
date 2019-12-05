@@ -4217,6 +4217,7 @@ tbody.collapse.show {
 }
 
 .card {
+  overflow: hidden;
   position: relative;
   display: -ms-flexbox;
   display: flex;
