@@ -13424,14 +13424,22 @@ html[dir="rtl"] .aside-menu-show .aside-menu {
     z-index: 1020;
     width: 100%;
     text-align: center;
-    background-color: #fff;
+    background-color: #2f353a;
   }
+
+  h1#head-title{
+    display: none !important;
+  }
+
+    img.navbar-brand{
+      margin-top: -20px;
+    }
   .app-header .navbar-toggler {
-    color: #fff;
+    color: rgb(24, 7, 7);
   }
   .app-header .navbar-brand {
     position: absolute;
-    left: 50%;
+    left: 45%;
     margin-left: -77.5px;
   }
   .app-body {
