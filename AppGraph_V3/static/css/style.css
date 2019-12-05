@@ -4229,6 +4229,7 @@ tbody.collapse.show {
   background-clip: border-box;
   border: 1px solid #c8ced3;
   border-radius: 0.25rem;
+  margin-top: 10px;
 }
 
 .card > hr {
