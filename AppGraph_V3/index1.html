@@ -25,19 +25,27 @@
   <script src="static/js/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
   <script src="static/js/%40coreui/coreui/dist/js/coreui.min.js"></script>
   <script src="static/js/chatbot.js"></script>
-
+  <script src="reimg.js"></script>
   <script src="https://code.highcharts.com/highcharts.js"></script>
   <script src="https://code.highcharts.com/modules/exporting.js"></script>
   <script src="https://code.highcharts.com/modules/export-data.js"></script>
-
+  <!-- <script src="scripts/d3.min.js"></script> -->
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
   <script src="https://cdn.neo4jlabs.com/neovis.js/v1.2.1/neovis.js"></script>
 
+  <!-- <script>
+  
+function download() {
+var download = document.getElementById("download");
+var image = document.getElementById("viz").toDataURL("image/png")
+download.setAttribute("href", image);
+//download.setAttribute("download","archive.png");
+}
+  </script> -->
   <script type="text/babel">
-
     class Visualization extends React.Component {
       // constructor(props) {
       // 	super(props)
@@ -50,6 +58,7 @@
           server_user: "neo4j",
           server_password: "12345",
           initial_cypher: this.props.query,
+          arrows: true,
           labels: {
             "Address": {
               "caption": "first_name",
@@ -190,10 +199,10 @@
             server_user: "neo4j",
             server_password: "12345",
             initial_cypher: this.props.query,
+            arrows: true,
             labels: {
-
               "Address": {
-                "caption": "first_name",
+                "caption": "name",
               },
               "Blacklist": {
                 "caption": "first_name",
@@ -247,7 +256,7 @@
                 "caption": "first_name",
               },
               "Pan": {
-                "caption": "first_name",
+                "caption": "No",
               },
               "PhoneNumber": {
                 "caption": "first_name",
@@ -273,13 +282,13 @@
                 "caption": false,
               },
               "HAS_ADDRESS": {
-                "caption": false,
+                "caption": true,
               },
               "HAS_BALANCE": {
                 "caption": false,
               },
               "Balance": {
-                "caption": false,
+                "caption": true,
               },
               "HAS_EMAILID": {
                 "caption": false,
@@ -334,7 +343,7 @@
       render() {
         const style = {
           width: "100%",
-          height: "400px",
+          height: "480px",
           border: "2px solid lightgray",
           font: "22pt Montserrat",
         }
@@ -353,6 +362,7 @@
       constructor() {
         super()
         this.state = {
+          query_property: "",
           query_entity: "indi",
           query_field: "name", // individual, name by default
           query_text: "",
@@ -362,7 +372,7 @@
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleChange = this.handleChange.bind(this)
       }
-
+      
       handleChange(event) {
         const { name, value } = event.target
         this.setState({ [name]: value })
@@ -428,7 +438,9 @@
             this.setState({ query: queries.q5 })
           }
       }
-
+     
+        
+      
       this.setState({ submission: this.state.submission + 1 })
       }
         render() {
@@ -449,19 +461,12 @@
 
 
                 <div className="App">
+                 
                   <div className="card ">
-                    <div className="card-body ">
-                      <header className="App-header">
-                        <h1 id="head-title"> NSE Client Profiling </h1>
-                      </header>
-                    </div>
-                  </div>
-
-                  <div className="card ">
-                    <div className="card-body ">
-                      <div width="100%" id="search-menu"> {/* search menu using parameterized query*/}
+                    <div className="card-body" >
+                      <div width="100%"   id="search-menu"> {/* search menu using parameterized query*/}
                         <form className="form-group" onSubmit={this.handleSubmit} encType="multipart/form-data">
-
+                          
                           <label>Entity type: </label><span>&nbsp; </span>
                           <select name='query_entity' value={this.state.query_entity} onChange={this.handleChange}>
                             <option value="indi">Individual</option>
@@ -481,7 +486,7 @@
                           <label id="query-space">
                             <input type='text' name='query_text' id="display-text" placeholder="Search query" value={this.state.query_text} onChange={this.handleChange} />
                           </label> <span>&nbsp;</span>
-                          <input type="submit" value="Submit query" />
+                          <input type="submit" value="Search" />
                         </form>
                         {/* <form onSubmit={this.handleCircularSubmit} encType="multipart/form-data">
               query search code pasted up
@@ -491,7 +496,6 @@
                   </div>
                   {/* <p id="p-text"><strong>Search field: </strong> {this.state.query_text} </p> */}
                   {invalid_query && <p>Please only search for Brokerage Members by Name or SEBI No.</p>}
-
                   <div className="card ">
                     <div className="Vis-container">
                       {this.state.submission > 0 && <Visualization query={this.state.query} id="viz" />}
@@ -518,21 +522,20 @@
       <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a class="navbar-brand" href="#">
-        Fraud Detection
-      </a>
+      <div>
+      <img src="./static/img/logo_white.png" class="navbar-brand" alt="NseitLogo" style="width: 100px; height: 42.68px; margin-left: 10px;">
+    </div>
+      <h1 id="head-title" style=" color: azure; margin-right: 40%;"> NSE Client Profiling </h1>
+      
     </header>
     <div class="app-body">
       <div class="sidebar">
         <nav class="sidebar-nav">
           <ul class="nav">
             <li class="nav-item">
-              <a class="nav-link" href="#">
-                <i class="nav-icon icon-speedometer"></i> Dashboard
-                <span class="badge badge-primary">NEW</span>
-              </a>
+
             </li>
-            <li class="nav-title">Stored Queries</li>
+            <li class="nav-title">Report</li>
             <li class="nav-item">
               <a class="nav-link" href="/index1.html">
                 <i class="nav-icon icon-user"></i> Client Profiling
