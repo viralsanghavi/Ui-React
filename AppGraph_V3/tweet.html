@@ -356,6 +356,8 @@
           query_entity: "key",
           query_field: "name", // individual, name by default
           query_text: "",
+           query_dateTo:"1",
+           query_dateFrom:"2",
           query: "", // pass down as a prop to the Visualization component
           submission: 0,// count of how many times user has queried,
         }
@@ -363,86 +365,87 @@
         this.handleChange = this.handleChange.bind(this)
       }
 
-      handleChange(event)
-       {
+      handleChange(event) {
         const { name, value } = event.target
         this.setState({ [name]: value })
       }
 
-      handleSubmit(event) 
-      {
+      handleSubmit(event) {
         event.preventDefault()
         var queries = {
-       
-          q10:`MATCH (m:Client)-[r1:TWEETS]->(n:Twitter) WHERE (n.Tweet CONTAINS '${this.state.query_text}') RETURN *`
+
+          q10: `MATCH (m:Client)-[r1:TWEETS]->(n:Twitter) Where (n.Tweet CONTAINS '${this.state.query_text}') match (m:Client)-[r2:TWEETS]->(n:Twitter) where n.Timestamp>date('${this.state.query_dateTo}') and n.Timestamp<date('${this.state.query_dateFrom}') Return *`
         }
-          if (this.state.query_entity === 'key') {
+        if (this.state.query_entity === 'key') {
           this.setState({ query: queries.q10 })
-        } else
-          if (this.state.query_entity === '8') {
-            this.setState({ query: queries.q2 })
-          }
+        }
 
-      this.setState({ submission: this.state.submission + 1 })
+        this.setState({ submission: this.state.submission + 1 })
       }
-        render() {
-          var invalid_query = false // maybe could be a state variable
-          if (this.state.query_entity === 'bro') {
-            if ((this.state.query_field === 'location') || (this.state.query_field === 'pan')) {
-              invalid_query = true
-            }
+      render() {
+        var invalid_query = false // maybe could be a state variable
+        if (this.state.query_entity === 'bro') {
+          if ((this.state.query_field === 'location') || (this.state.query_field === 'pan')) {
+            invalid_query = true
           }
-        
-
-          return (
+        }
 
 
-            <div className="container-fluid">
-              <div className="animated fadeIn">
+        return (
+
+
+          <div className="container-fluid">
+            <div className="animated fadeIn">
 
 
 
 
-                <div className="App">
-                  
+              <div className="App">
 
-                  <div className="card ">
-                    <div className="card-body ">
-                      <div width="100%" id="search-menu"> {/* search menu using parameterized query*/}
-                        <form className="form-group" onSubmit={this.handleSubmit} encType="multipart/form-data">
-                          <select name='query_entity' value={this.state.query_entity} onChange={this.handleChange}>
-                            <option value="key">Search By Keyword</option>
-                          </select>
-                           <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                          <label id="query-space"><label>Enter Keyword</label><span>&nbsp;&nbsp;&nbsp;</span>
-                            <input type='text' name='query_text' id="display-text" placeholder="Search query" value={this.state.query_text} onChange={this.handleChange} />
-                          </label> <span>&nbsp;</span><label> Date : </label> <label> TO </label> <input type='number' name='query_dateTo' id="display-text"  value={this.state.query_text} onChange={this.handleChange}/> <label> FROM </label> <input type='number' name='query_dateFrom' id="display-text"  value={this.state.query_text} onChange={this.handleChange}/><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                          <input type="submit" value="Submit query"/>
-                        </form>
-                        {/* <form onSubmit={this.handleCircularSubmit} encType="multipart/form-data">
+
+                <div className="card ">
+                  <div className="card-body ">
+                    <div width="100%" id="search-menu"> {/* search menu using parameterized query*/}
+                      <form className="form-group" onSubmit={this.handleSubmit} encType="multipart/form-data">
+                        <select name='query_entity' value={this.state.query_entity} onChange={this.handleChange}>
+                          <option value="key">Search By Keyword</option>
+                        </select>
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <label id="query-space"><label>Enter Keyword</label><span>&nbsp;&nbsp;&nbsp;</span>
+                          <input type='text' name='query_text' id="display-text" placeholder="Keyword" value={this.state.query_text} onChange={this.handleChange} />
+                        </label> <span>&nbsp;</span>
+                        <label> Date : </label>
+                        <label> TO :</label>
+                        <input type='date' name='query_dateTo' id="display-text" value={this.state.query_dateTo} onChange={this.handleChange} /> 
+                        <label> FROM: </label> 
+                        <input type='date' name='query_dateFrom' id="display-text" value={this.state.query_dateFrom} onChange={this.handleChange} />
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <input type="submit" value="Submit query" />
+                      </form>
+                      {/* <form onSubmit={this.handleCircularSubmit} encType="multipart/form-data">
               query search code pasted up
             </form> */}
-                      </div>
                     </div>
                   </div>
-                  {/* <p id="p-text"><strong>Search field: </strong> {this.state.query_text} </p> */}
-                  {invalid_query && <p>Please only search for Brokerage Members by Name or SEBI No.</p>}
+                </div>
+                {/* <p id="p-text"><strong>Search field: </strong> {this.state.query_text} </p> */}
+                {invalid_query && <p>Please only search for Brokerage Members by Name or SEBI No.</p>}
 
-                  <div className="card ">
-                    <div className="Vis-container">
-                      {this.state.submission > 0 && <Visualization query={this.state.query} id="viz" />}
-                    </div>
+                <div className="card ">
+                  <div className="Vis-container">
+                    {this.state.submission > 0 && <Visualization query={this.state.query} id="viz" />}
                   </div>
                 </div>
               </div>
             </div>
-          );
-        }
-    
-      } ReactDOM.render(
-    <Greeting />,
-    document.getElementById('root')
-);
+          </div>
+        );
+      }
+
+    } ReactDOM.render(
+      <Greeting />,
+      document.getElementById('root')
+    );
   </script>
 
 </head>
@@ -489,7 +492,7 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" href="WholeGraph.html">
-            <i class="nav-icon icon-size-fullscreen"></i> All Data</a>
+                <i class="nav-icon icon-size-fullscreen"></i> All Data</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="tweet.html">

@@ -356,6 +356,8 @@
           query_entity: "key",
           query_field: "name", // individual, name by default
           query_text: "",
+          query_dateTo:"1",
+          query_dateFrom:"2",
           query: "", // pass down as a prop to the Visualization component
           submission: 0,// count of how many times user has queried,
         }
@@ -374,14 +376,13 @@
         event.preventDefault()
         var queries = {
        
-          q10:`MATCH (m:Company)-[r:UPDATES]->(n:Newsfeed) WHERE (tolower(n.News) CONTAINS '${this.state.query_text}') RETURN *`
+          q10:`MATCH (m:Company)-[r1:UPDATES]->(n:Newsfeed) WHERE (n.News CONTAINS '${this.state.query_text}')  
+                  match (m:Company)-[r1:UPDATES]->(n:Newsfeed) where n.Timestamp  >date('${this.state.query_dateTo}') 
+                    and n.Timestamp  <date('${this.state.query_dateFrom}')RETURN *`
         }
           if (this.state.query_entity === 'key') {
           this.setState({ query: queries.q10 })
-        } else
-          if (this.state.query_entity === '8') {
-            this.setState({ query: queries.q2 })
-          }
+        } 
 
       this.setState({ submission: this.state.submission + 1 })
       }
@@ -417,6 +418,12 @@
                           <label id="query-space"><label>Enter Keyword</label><span>&nbsp;&nbsp;&nbsp;</span>
                             <input type='text' name='query_text' id="display-text" placeholder="Search query" value={this.state.query_text} onChange={this.handleChange} />
                           </label> <span>&nbsp;</span>
+                          <label> Date : </label>
+                        <label> TO :</label>
+                        <input type='date' name='query_dateTo' id="display-text1" value={this.state.query_dateTo} onChange={this.handleChange} /> 
+                        <label> FROM: </label> 
+                        <input type='date' name='query_dateFrom' id="display-text2" value={this.state.query_dateFrom} onChange={this.handleChange} />
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                           <input type="submit" value="Submit query" />
                         </form>
                         {/* <form onSubmit={this.handleCircularSubmit} encType="multipart/form-data">
