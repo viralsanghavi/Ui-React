@@ -160,7 +160,7 @@
           "Address": {
             "returnAttributes": ["City", "State", "Street", "Pin Code"],
             "constraintAttribute": "Street",
-            "autoExpandRelations": false,
+            "autoExpandRelations": true,
           },
           "Trade": {
             "returnAttributes": ["Type", "Date", "Amount", "ISIN No", "Symbol", "Volume"],
@@ -345,7 +345,7 @@
         popoto.tools.TOGGLE_TAXONOMY = true;
 
 
-     
+
         // on Save Code Done BElow
         popoto.graph.onSave(function (graph) {
           // generate a unique id
@@ -416,12 +416,12 @@
                 </nav>
 
                 <div id="popoto-graph" className="ppt-div-graph">
-                  
-                </div>
-                </div>
-                <div id="vis" className="ppt-div-graph" >
 
                 </div>
+              </div>
+              <div id="vis" className="ppt-div-graph" >
+
+              </div>
               <div id="popoto-cypher" className="ppt-container-cypher">
               </div>
 
@@ -576,6 +576,10 @@
                 <i class="nav-icon icon-globe"></i>News Data</a>
             </li>
 
+            <li class="nav-item">
+              <a class="nav-link" href="WholeGraph.html">
+                <i class="nav-icon icon-size-fullscreen"></i> All Data</a>
+            </li>
             <li class="nav-item">
               <a class="nav-link" href="WholeGraph.html">
                 <i class="nav-icon icon-size-fullscreen"></i> All Data</a>
