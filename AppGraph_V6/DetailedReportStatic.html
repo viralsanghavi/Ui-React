@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Nse Fraud Detection</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Place favicon.ico and apple-touch-icon(s) in the root directory -->
+  <link rel="shortcut icon" href="images/favicon.ico">
+
+  <!-- stylesheets -->
+  <link href="static/css/flag-icon-css/css/flag-icon.min.css" rel="stylesheet">
+  <link href="static/css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="static/css/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+  <link href="static/css/style.css" rel="stylesheet">
+      <link rel="stylesheet" href="../node_modules/popoto/dist/popoto.min.css">
+ 
+  <!-- javascript -->
+  <script src="static/js/popper.js/dist/umd/popper.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="static/bootstrap/js/bootstrap.min.js"></script>
+  <script src="static/js/pace-progress/pace.min.js"></script>
+  <script src="static/js/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
+  <script src="static/js/%40coreui/coreui/dist/js/coreui.min.js"></script>
+  <script src="static/js/chatbot.js"></script>
+
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
+  <script src="https://cdn.neo4jlabs.com/neovis.js/v1.2.1/neovis.js"></script>
+  <script src="https://unpkg.com/popoto"></script>
+  <link rel="stylesheet" href="https://unpkg.com/popoto/dist/popoto.min.css">
+  <script src="https://d3js.org/d3.v5.js"></script>
+  <script src="https://unpkg.com/popoto/dist/popoto.js"></script>
+
+
+  <script type="text/babel">
+
+    class Popoto extends React.Component {
+
+      constructor(props) {
+        super(props)
+        this.popotoConfig = this.popotoConfig.bind(this)
+      }
+
+
+      componentDidMount() {
+        this.popotoConfig();
+      }
+
+      popotoConfig() {
+        // Demo Neo4j database settings hosted on GrapheneDb
+        popoto.rest.CYPHER_URL = "http://localhost:7474/db/data/transaction/commit";
+        popoto.rest.AUTHORIZATION = "Basic " + btoa("neo4j:12345");
+        // Define the list of label provider to customize the graph behavior:
+        // Only two labels are used in Neo4j movie graph example: "Movie" and "Person"
+        popoto.provider.node.Provider = {
+          "Client": {
+            "returnAttributes": ["Name", "Designation", "UniqueId", "Join_Date", "Age"],
+            "constraintAttribute": "Name",
+            "autoExpandRelations": false, // automatically expand nodes in graph
+          },
+          "Broker": {
+            "returnAttributes": ["name", "Pan"],
+            "constraintAttribute": "name",
+            "autoExpandRelations": false,
+          },
+          "Company": {
+            "returnAttributes": ["Name", "ISIN", "Sector", "BSE", "NSE", "Location"],
+            "constraintAttribute": "Name",
+            "autoExpandRelations": false,
+          },
+          "Brokercompany": {
+            "returnAttributes": ["name", "Location"],
+            "constraintAttribute": "name",
+            "autoExpandRelations": false,
+          },
+          "Exchange Company": {
+            "returnAttributes": ["Name", "Symbol"],
+            "constraintAttribute": "Name",
+            "autoExpandRelations": false,
+          },
+          "Pan": {
+            "returnAttributes": ["No"],
+            "constraintAttribute": "No",
+            "autoExpandRelations": false,
+          },
+          "PhoneNumber": {
+            "returnAttributes": ["PhoneNumber"],
+            "constraintAttribute": "PhoneNumber",
+            "autoExpandRelations": false,
+          },
+          "Email": {
+            "returnAttributes": ["adress"],
+            "constraintAttribute": "adress",
+            "autoExpandRelations": false,
+          },
+          "Address": {
+            "returnAttributes": ["City", "State", "Street", "Pin Code"],
+            "constraintAttribute": "Street",
+            "autoExpandRelations": false,
+          },
+          "Trade": {
+            "returnAttributes": ["Type", "Date", "Amount", "ISIN No", "Symbol", "Volume"],
+            "constraintAttribute": "Date",
+            "autoExpandRelations": false,
+          },
+          "MonthlyTransaction": {
+            "returnAttributes": ["date", "TradeAmount"],
+            "constraintAttribute": "date",
+            "autoExpandRelations": false,
+          },
+          "MonthlyTrade": {
+            "returnAttributes": ["TradeAmount", "date"],
+            "constraintAttribute": "TradeAmount",
+            "autoExpandRelations": false,
+          },
+          "SecurityBalance": {
+            "returnAttributes": ["Last balance settlement date"],
+            "constraintAttribute": "Last balance settlement date",
+            "autoExpandRelations": false,
+          },
+          "DailyBalance": {
+            "returnAttributes": ["Daily Balance"],
+            "constraintAttribute": "Daily Balance",
+            "autoExpandRelations": false,
+          },
+          "MonthlyBalance": {
+            "returnAttributes": ["Fund Balance", "Net across exchanges", "Last balance settlement date"],
+            "constraintAttribute": "Fund Balance",
+            "autoExpandRelations": false,
+          },
+          "FundsBalance": {
+            "returnAttributes": ["Fund Balance, Funds raised"],
+            "constraintAttribute": "Fund Balance",
+            "autoExpandRelations": false,
+          },
+          "FinancialOverview": {
+            "returnAttributes": ["Operating Profit", "Net Sale", "Profit Before Tax", "Profit After Tax"],
+            "constraintAttribute": "Operating Profit",
+            "autoExpandRelations": false,
+          },
+          "Blacklist": {
+            "returnAttributes": ["Reason", "Type"],
+            "constraintAttribute": "Type",
+            "autoExpandRelations": false,
+          },
+          "Newsfeed": {
+            "returnAttributes": ["News", "Timestamp", "Publisher"],
+            "constraintAttribute": "Timestamp",
+            "autoExpandRelations": false,
+          },
+          "Twitter": {
+            "returnAttributes": ["Handle", "Tweet", "Timestamp"],
+            "constraintAttribute": "Timestamp",
+            "autoExpandRelations": false,
+          },
+          "Event": {
+            "returnAttributes": ["Purpose", "Date"],
+            "constraintAttribute": "Date",
+            "autoExpandRelations": false,
+          },
+          "Events": {
+            "returnAttributes": ["Year"],
+            "constraintAttribute": "Year",
+            "autoExpandRelations": false,
+          }
+        };
+
+        // "Movie": {
+        //     "returnAttributes": ["title", "released", "tagline"],
+        //     "constraintAttribute": "title"
+        // },
+        // "Person": {
+        //     "returnAttributes": ["name", "born"],
+        //     "constraintAttribute": "name",
+        //     // Customize result display for Person nodes:
+        //     "displayResults": function (pResultElmt) {
+        //         // Here D3.js mechanisms is used to generate HTML code.
+        //         // By default Popoto.js generates a <p> element for each result.
+        //         // pResultElmt parameter is the <p> element selected with D3.js
+        //         // So for "Person" result nodes two elements are generated:
+        //         // An <h3> element containing the person name
+        //         pResultElmt.append("h3")
+        //             .text(function (result) {
+        //                 return result.attributes.name;
+        //             });
+        //         // A <span> element with the computed age from born attribute
+        //         pResultElmt.filter(function (result) {
+        //             // Filter on attribute having born attribute value
+        //             return result.attributes.born;
+        //         }).append("span").text(function (result) {
+        //             return "Age: " + (new Date().getFullYear() - result.attributes.born);
+        //         });
+        //     }
+        // }
+
+        popoto.provider.link.Provider = {
+          /*customize the text displayed in relationships */
+          "getTextValue": function (link) {
+            if (link.type === popoto.graph.link.LinkTypes.RELATION || link.type === popoto.graph.link.LinkTypes.SEGMENTS) {
+
+              var targetName = "";
+              if (link.type === popoto.graph.link.LinkTypes.SEGMENT) {
+                targetName = " " + popoto.provider.node.getTextValue(link.target);
+              }
+              switch (link.label) {
+                case "IS_BLACKLISTED":
+                  return "Blacklisted" + targetName;
+                case "TWEETS":
+                  return "Tweeted" + targetName;
+                case "Is_BlackListed":
+                  return "blacklisted" + targetName;
+                case "HAS_MONTHLY_TRADE":
+                  return "Monthly trade" + targetName;
+                case "IS_MEMBER":
+                  return "Member of" + targetName;
+                case "IS_TRADING":
+                  return "Trading" + targetName;
+                case "THROUGH":
+                  return "Exchanges on" + targetName;
+                case "CLIENT":
+                  return "Client of" + targetName;
+                case "IS_BROKER":
+                  return "Employee of" + targetName;
+                case "CORPORATE_EVENT":
+                  return "Had events" + targetName;
+                case "FINANCIAL_HISTORY":
+                  return "Financial Overview" + targetName;
+                case "HAS_ACTIONS":
+                  return "Event type" + targetName;
+                case "IS_SELLING":
+                  return "Sold" + targetName;
+                case "IS_BUYING":
+                  return "Bought" + targetName;
+                case "UPDATES":
+                  return "News regarding" + targetName;
+
+                default: //could probably just use this 
+                  return link.label + targetName;
+              }
+            }
+          }
+        };
+
+
+        // Change the number of displayed results:
+        popoto.result.RESULTS_PAGE_SIZE = 50;
+        // Add a listener on returned result count to update count in page
+        popoto.result.onTotalResultCount(function (count) {
+          d3.select("#rescount").text(function (d) {
+            return "(" + count + ")";
+          })
+        });
+        // Add a listener on new relation added
+        popoto.graph.on(popoto.graph.Events.GRAPH_NODE_RELATION_ADD, function (relations) {
+          var newRelation = relations[0];
+          // Collapse all expanded choose nodes first to avoid having value node in selection.
+          popoto.graph.node.collapseAllNode();
+          var linksToRemove = popoto.dataModel.links.filter(function (link) {
+            // All other links starting from same source node except new one.
+            return link !== newRelation && link.source === newRelation.source;
+          });
+          linksToRemove.forEach(function (link) {
+            var willChangeResults = popoto.graph.node.removeNode(link.target);
+            popoto.result.hasChanged = popoto.result.hasChanged || willChangeResults;
+          });
+          popoto.update();
+        });
+        // Start the generation using parameter as root label of the query.
+        popoto.start("Client");
+      }
+
+
+      render() {
+
+        return (
+          <div>
+
+            <section class="ppt-section-main">
+              <div class="ppt-section-header">
+                <span class="ppt-header-span">Graph</span> search
+          </div>
+
+              <div class="ppt-container-graph">
+                <nav id="popoto-taxonomy" class="ppt-taxo-nav">
+                </nav>
+                <div id="popoto-graph" class="ppt-div-graph">
+                </div>
+              </div>
+              <div id="popoto-query" class="ppt-container-query">
+              </div>
+              <div id="popoto-cypher" class="ppt-container-cypher">
+              </div>
+              <div class="ppt-section-header">
+                RESULTS <span id="result-total-count" class="ppt-count"></span>
+              </div>
+              <div id="popoto-results" class="ppt-container-results">
+              </div>
+            </section>
+          </div>
+        )
+      }
+    }
+
+
+    class Greeting extends React.Component {
+      constructor() {
+        super()
+        this.state = {
+          query_entity: "10",
+          query_field: "name", // individual, name by default
+          query_text: "",
+          query: "", // pass down as a prop to the Visualization component
+          submission: 0,// count of how many times user has queried,
+        }
+        this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleChange = this.handleChange.bind(this)
+      }
+
+      handleChange(event) {
+        const { name, value } = event.target
+        this.setState({ [name]: value })
+      }
+
+      handleSubmit(event) {
+        event.preventDefault()
+        var queries = {
+          q1: `Match (trade:Trade)<-[r1:IS_SELLING]-(client:Client)-[member:IS_MEMBER]->(company:Company),(company)-[corp:CORPORATE_EVENT]->(event1:Events),(event1)-[r2:HAS_ACTIONS]->(event:Event)Where (trade.Date)+duration({days: 10})=(event.Date) Return *`,
+          q2: `Match (trade:Trade)<-[r1:IS_SELLING]-(client:Client)-[member:IS_MEMBER]->(company:Company),(company)-[corp:CORPORATE_EVENT]->(event1:Events),(event1)-[r2:HAS_ACTIONS]->(event:Event)Where (trade.Date)+duration({days: 8})=(event.Date) Return *`,
+
+
+
+        }
+        if (this.state.query_entity === '10') {
+          this.setState({ query: queries.q1 })
+        } else
+          if (this.state.query_entity === '8') {
+            this.setState({ query: queries.q2 })
+          }
+
+
+        this.setState({ submission: this.state.submission + 1 })
+      }
+
+
+
+      render() {
+        var invalid_query = false // maybe could be a state variable
+        if (this.state.query_entity === 'bro') {
+          if ((this.state.query_field === 'location') || (this.state.query_field === 'pan')) {
+            invalid_query = true
+          }
+        }
+
+        return (
+
+
+          <div className="container-fluid">
+            <div className="animated fadeIn">
+
+
+
+
+              <div className="App">
+                <div className="card">
+                  <div className="card-body" >
+                    <div width="100%" id="search-menu"> {/* search menu using parameterized query*/}
+                      <form className="form-group" onSubmit={this.handleSubmit} encType="multipart/form-data">
+
+                        <label>Number Of days </label><span>&nbsp; </span>
+                        <select name='query_entity' value={this.state.query_entity} onChange={this.handleChange}>
+                          <option value="10">10 days</option>
+                          <option value="8">8 days</option>
+                        </select>
+                        <span>&nbsp;</span>
+
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <label id="query-space">
+                        </label> <span>&nbsp;</span>
+                        <input type="submit" value="Search" />
+                      </form>
+                      {/* <form onSubmit={this.handleCircularSubmit} encType="multipart/form-data">
+              query search code pasted up
+            </form> */}
+                    </div>
+                  </div>
+                </div>
+                {/* <p id="p-text"><strong>Search field: </strong> {this.state.query_text} </p> */}
+                {invalid_query && <p>Please only search for Brokerage Members by Name or SEBI No.</p>}
+
+                <div className="card ">
+                  <div className="Vis-container">
+
+                    {this.state.submission > 0 && <Popoto />}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+    } ReactDOM.render(
+      <Greeting />,
+      document.getElementById('root')
+    );
+  </script>
+
+</head>
+
+<body>
+
+  <div class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
+    <header class="app-header navbar">
+      <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div>
+        <img src="./static/img/logo_white.png" class="navbar-brand" alt="NseitLogo"
+          style="width: 100px; height: 42.68px; margin-left: 10px;">
+      </div>
+      <h1 id="head-title" style=" color: azure; margin-right: 40%;"> NSE Insider Trading </h1>
+
+
+    </header>
+    <div class="app-body">
+      <div class="sidebar">
+        <nav class="sidebar-nav">
+          <ul class="nav">
+            <li class="nav-item">
+
+            </li>
+            <li class="nav-title">Report</li>
+            <li class="nav-item">
+              <a class="nav-link" href="/index1.html">
+                <i class="nav-icon icon-user"></i> Client Profiling
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/circulartrading.html">
+                <i class="nav-icon icon-refresh"></i> Circular Trading
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="insidertrading.html">
+                <i class="nav-icon icon-map"></i> Insider Trading</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="WholeGraph.html">
+                <i class="nav-icon icon-size-fullscreen"></i> All Data</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="tweet.html">
+                <i class="nav-icon icon-social-twitter"></i>Tweets Data</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="NEWS.html">
+                <i class="nav-icon icon-globe"></i>News Data</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <main class="main">
+
+
+
+
+
+        <div id="root"></div>
+
+
+
+
+
+
+      </main>
+
+
+
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+
+</body>
+
+</html>

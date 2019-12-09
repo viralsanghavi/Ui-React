@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Nse Fraud Detection</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Place favicon.ico and apple-touch-icon(s) in the root directory -->
+  <link rel="shortcut icon" href="images/favicon.ico">
+
+  <!-- stylesheets -->
+  <link href="static/css/flag-icon-css/css/flag-icon.min.css" rel="stylesheet">
+  <link href="static/css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="static/css/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+  <link href="static/css/style.css" rel="stylesheet">
+
+  <!-- javascript -->
+  <script src="static/js/popper.js/dist/umd/popper.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="static/bootstrap/js/bootstrap.min.js"></script>
+  <script src="static/js/pace-progress/pace.min.js"></script>
+  <script src="static/js/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
+  <script src="static/js/%40coreui/coreui/dist/js/coreui.min.js"></script>
+  <script src="static/js/chatbot.js"></script>
+
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
+  <script src="https://cdn.neo4jlabs.com/neovis.js/v1.2.1/neovis.js"></script>
+
+  <script type="text/babel">
+
+    class Visualization extends React.Component {
+      // constructor(props) {
+      // 	super(props)
+      // }
+
+      componentDidMount() {
+        var config = {
+          container_id: this.props.id,
+          server_url: "bolt://172.25.11.96:7687",
+          server_user: "neo4j",
+          server_password: "12345",
+          initial_cypher: this.props.query,
+          arrows: true,
+          labels: {
+            "Client": {
+              "caption": "Name",
+            },
+            "Company": {
+              "caption": "Name",
+            },
+            "Event": {
+              "caption": "Purpose",
+            },
+          },
+          relationships: {
+            "CORPORATE_EVENT": {
+              "caption": false
+            },
+            "HAS_ACTIONS": {
+              "caption": false
+            }
+          },
+        }
+        var viz = new NeoVis.default(config);
+        viz.render();
+      }
+
+      componentDidUpdate(prevProps) {
+        if (this.props.query !== prevProps.query) {
+          var config = {
+            container_id: this.props.id,
+            server_url: "bolt://172.25.11.96:7687",
+            server_user: "neo4j",
+            server_password: "12345",
+            initial_cypher: this.props.query,
+            // arrows: true,
+            labels: {
+              "Client": {
+                "caption": "Name",
+              },
+              "Company": {
+                "caption": "Name",
+              },
+              "Event": {
+                "caption": "Purpose",
+              },
+            },
+            relationships: {
+              "CORPORATE_EVENT": {
+                "caption": false
+              },
+              "HAS_ACTIONS": {
+                "caption": false
+              }
+            },
+          }
+          var viz = new NeoVis.default(config);
+          viz.render();
+        }
+      }
+
+      render() {
+        const style = {
+          width: "100%",
+          height: "420px",
+          border: "2px solid lightgray",
+          font: "22pt Montserrat",
+        }
+
+        return (
+          <div
+            id={this.props.id}
+            style={style}
+          />
+
+        )
+      }
+    }
+
+    class Greeting extends React.Component {
+      constructor() {
+        super()
+        this.state = {
+          query_entity: "10",
+          query_field: "name", // individual, name by default
+          query_text: "",
+          query: "", // pass down as a prop to the Visualization component
+          submission: 0,// count of how many times user has queried,
+        }
+        this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleChange = this.handleChange.bind(this)
+      }
+
+      handleChange(event) {
+        const { name, value } = event.target
+        this.setState({ [name]: value })
+      }
+
+      handleSubmit(event) {
+        event.preventDefault()
+        var queries = {
+          q1: `Match (trade:Trade)<-[r1:IS_SELLING]-(client:Client)-[member:IS_MEMBER]->(company:Company),(company)-[corp:CORPORATE_EVENT]->(event1:Events),(event1)-[r2:HAS_ACTIONS]->(event:Event)Where (trade.Date)+duration({days: 10})=(event.Date) Return *`,
+          q2: `Match (trade:Trade)<-[r1:IS_SELLING]-(client:Client)-[member:IS_MEMBER]->(company:Company),(company)-[corp:CORPORATE_EVENT]->(event1:Events),(event1)-[r2:HAS_ACTIONS]->(event:Event)Where (trade.Date)+duration({days: 8})=(event.Date) Return *`,
+
+
+
+        }
+        if (this.state.query_entity === '10') {
+          this.setState({ query: queries.q1 })
+        } else
+          if (this.state.query_entity === '8') {
+            this.setState({ query: queries.q2 })
+          }
+
+
+        this.setState({ submission: this.state.submission + 1 })
+      }
+
+
+
+      render() {
+        var invalid_query = false // maybe could be a state variable
+        if (this.state.query_entity === 'bro') {
+          if ((this.state.query_field === 'location') || (this.state.query_field === 'pan')) {
+            invalid_query = true
+          }
+        }
+
+        return (
+
+
+          <div className="container-fluid">
+            <div className="animated fadeIn">
+
+
+
+
+              <div className="App">
+                <div className="card">
+                  <div className="card-body" >
+                    <div width="100%" id="search-menu"> {/* search menu using parameterized query*/}
+                      <form className="form-group" onSubmit={this.handleSubmit} encType="multipart/form-data">
+
+                        <label>Number Of days </label><span>&nbsp; </span>
+                        <select name='query_entity' value={this.state.query_entity} onChange={this.handleChange}>
+                          <option value="10">10 days</option>
+                          <option value="8">8 days</option>
+                        </select>
+                        <span>&nbsp;</span>
+
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <label id="query-space">
+                        </label> <span>&nbsp;</span>
+                        <input type="submit" value="Search" />
+                      </form>
+                      {/* <form onSubmit={this.handleCircularSubmit} encType="multipart/form-data">
+              query search code pasted up
+            </form> */}
+                    </div>
+                  </div>
+                </div>
+                {/* <p id="p-text"><strong>Search field: </strong> {this.state.query_text} </p> */}
+                {invalid_query && <p>Please only search for Brokerage Members by Name or SEBI No.</p>}
+
+                <div className="card ">
+                  <div className="Vis-container">
+
+                    {this.state.submission > 0 && <Visualization query={this.state.query} id="viz" />}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+    } ReactDOM.render(
+      <Greeting />,
+      document.getElementById('root')
+    );
+  </script>
+
+</head>
+
+<body>
+
+  <div class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
+    <header class="app-header navbar">
+      <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div>
+        <img src="./static/img/logo_white.png" class="navbar-brand" alt="NseitLogo"
+          style="width: 100px; height: 42.68px; margin-left: 10px;">
+      </div>
+      <h1 id="head-title" style=" color: azure; margin-right: 40%;"> NSE Insider Trading </h1>
+
+
+    </header>
+    <div class="app-body">
+      <div class="sidebar">
+        <nav class="sidebar-nav">
+          <ul class="nav">
+            <li class="nav-item">
+
+            </li>
+            <li class="nav-title">Report</li>
+            <li class="nav-item">
+              <a class="nav-link" href="/index1.html">
+                <i class="nav-icon icon-user"></i> Client Profiling
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/circulartrading.html">
+                <i class="nav-icon icon-refresh"></i> Circular Trading
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="insidertrading.html">
+                <i class="nav-icon icon-map"></i> Insider Trading</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="tweet.html">
+                <i class="nav-icon icon-social-twitter"></i>Tweets Data</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="NEWS.html">
+                <i class="nav-icon icon-globe"></i>News Data</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="WholeGraph.html">
+                <i class="nav-icon icon-size-fullscreen"></i> All Data</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <main class="main">
+
+
+
+
+
+        <div id="root"></div>
+
+
+
+
+
+
+      </main>
+
+
+
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+
+</body>
+
+</html>

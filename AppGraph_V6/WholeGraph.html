@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Nse Fraud Detection</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Place favicon.ico and apple-touch-icon(s) in the root directory -->
+  <link rel="shortcut icon" href="images/favicon.ico">
+
+  <!-- stylesheets -->
+  <link href="static/css/flag-icon-css/css/flag-icon.min.css" rel="stylesheet">
+  <link href="static/css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="static/css/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+  <link href="static/css/style.css" rel="stylesheet">
+
+  <!-- javascript -->
+  <script src="static/js/popper.js/dist/umd/popper.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="static/bootstrap/js/bootstrap.min.js"></script>
+  <script src="static/js/pace-progress/pace.min.js"></script>
+  <script src="static/js/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
+  <script src="static/js/%40coreui/coreui/dist/js/coreui.min.js"></script>
+  <script src="static/js/chatbot.js"></script>
+  <!-- Scripts for popoto -->
+  <script src="https://d3js.org/d3.v5.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/popoto/dist/popoto.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/popoto/dist/popoto.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popoto/dist/popoto.js"></script>
+
+  <!-- Import mapbox stylesheet -->
+  <link href='https://api.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.css' rel='stylesheet' />
+  <script src="static/js/map.js"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.6.0/mapbox-gl.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.6.0/mapbox-gl.css' rel='stylesheet' />
+
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
+  <script src="https://cdn.neo4jlabs.com/neovis.js/v1.2.1/neovis.js"></script>
+  <!-- <style>
+    #popoto-graph:fullscreen {
+      width: 100%;
+      height: 100%;
+    }
+
+    #popoto-graph:-webkit-full-screen {
+      width: 100%;
+      height: 100%;
+    }
+
+    #popoto-graph:-moz-full-screen {
+      width: 100%;
+      height: 100%;
+    }
+
+    #popoto-graph:-ms-fullscreen {
+      width: 100%;
+      height: 100%;
+    }
+  </style> -->
+  <script type="text/babel">
+
+
+    class Popoto extends React.Component {
+
+      constructor(props) {
+        super(props)
+        this.popotoConfig = this.popotoConfig.bind(this)
+      }
+
+
+      componentDidMount() {
+        this.popotoConfig();
+      }
+
+      popotoConfig() {
+        // Demo Neo4j database settings hosted on GrapheneDb
+        popoto.rest.CYPHER_URL = "http://localhost:7474/db/data/transaction/commit";
+        popoto.rest.AUTHORIZATION = "Basic " + btoa("neo4j:12345");
+        // Define the list of label provider to customize the graph behavior:
+        // Only two labels are used in Neo4j movie graph example: "Movie" and "Person"
+
+
+        popoto.provider.node.Provider = {
+          "Client": {
+            "returnAttributes": ["Name", "Designation", "UniqueId", "Join_Date", "Age"],
+            "constraintAttribute": "Name",
+            "autoExpandRelations": true, // automatically expand nodes in graph
+            "resultOrderByAttribute": "Name",
+            "valueOrderByAttribute": "Name",
+            "isValueOrderAscending": true,
+            // getDisplayType: function (node) {
+            //     return popoto.provider.node.DisplayTypes.IMAGE;
+            // },
+            // "getImagePath": function (node) {
+            //     // if (node.type === popoto.graph.node.NodeTypes.VALUE) {
+            //     //     return "../material/person/" + node.attributes['name'] + ".jpg"
+            //     // } else if (node.hasOwnProperty("value") && node.value.length > 0) {
+            //     //     return "../material/person/" + node.value[0].attributes['name'] + ".jpg"
+            //     // }
+            //     // return 'static/img/per2.png';
+            // },
+          },
+          "Broker": {
+            "returnAttributes": ["name", "Pan"],
+            "constraintAttribute": "name",
+            "autoExpandRelations": true,
+            "isValueOrderAscending": true,
+            "resultOrderByAttribute": "Name",
+            "valueOrderByAttribute": "Name",
+            "isValueOrderAscending": true,
+          },
+          "Company": {
+            "returnAttributes": ["Name", "ISIN", "Sector", "BSE", "NSE", "Location"],
+            "constraintAttribute": "Name",
+            "autoExpandRelations": false,
+            "isValueOrderAscending": true,
+            "resultOrderByAttribute": "Name",
+            "valueOrderByAttribute": "Name",
+            "isValueOrderAscending": true,
+          },
+          "Brokercompany": {
+            "returnAttributes": ["name", "Location"],
+            "constraintAttribute": "name",
+            "autoExpandRelations": false,
+            "resultOrderByAttribute": "Name",
+            "valueOrderByAttribute": "Name",
+            "isValueOrderAscending": true,
+          },
+          "Exchange Company": {
+            "returnAttributes": ["Name", "Symbol"],
+            "constraintAttribute": "Name",
+            "autoExpandRelations": false,
+          },
+          "Pan": {
+            "returnAttributes": ["No"],
+            "constraintAttribute": "No",
+            "autoExpandRelations": false,
+          },
+          "PhoneNumber": {
+            "returnAttributes": ["PhoneNumber"],
+            "constraintAttribute": "PhoneNumber",
+            "autoExpandRelations": false,
+          },
+          "Email": {
+            "returnAttributes": ["adress"],
+            "constraintAttribute": "adress",
+            "autoExpandRelations": false,
+          },
+          "Address": {
+            "returnAttributes": ["City", "State", "Street", "Pin Code"],
+            "constraintAttribute": "Street",
+            "autoExpandRelations": false,
+          },
+          "Trade": {
+            "returnAttributes": ["Type", "Date", "Amount", "ISIN No", "Symbol", "Volume"],
+            "constraintAttribute": "Date",
+            "autoExpandRelations": false,
+          },
+          "MonthlyTransaction": {
+            "returnAttributes": ["date", "TradeAmount"],
+            "constraintAttribute": "date",
+            "autoExpandRelations": false,
+          },
+          "MonthlyTrade": {
+            "returnAttributes": ["TradeAmount", "date"],
+            "constraintAttribute": "TradeAmount",
+            "autoExpandRelations": false,
+          },
+          "SecurityBalance": {
+            "returnAttributes": ["Last balance settlement date"],
+            "constraintAttribute": "Last balance settlement date",
+            "autoExpandRelations": false,
+          },
+          "DailyBalance": {
+            "returnAttributes": ["Daily Balance"],
+            "constraintAttribute": "Daily Balance",
+            "autoExpandRelations": false,
+          },
+          "MonthlyBalance": {
+            "returnAttributes": ["Fund Balance", "Net across exchanges", "Last balance settlement date"],
+            "constraintAttribute": "Fund Balance",
+            "autoExpandRelations": false,
+          },
+          "FundsBalance": {
+            "returnAttributes": ["Fund Balance, Funds raised"],
+            "constraintAttribute": "Fund Balance",
+            "autoExpandRelations": false,
+          },
+          "FinancialOverview": {
+            "returnAttributes": ["Operating Profit", "Net Sale", "Profit Before Tax", "Profit After Tax"],
+            "constraintAttribute": "Operating Profit",
+            "autoExpandRelations": false,
+          },
+          "Blacklist": {
+            "returnAttributes": ["Reason", "Type"],
+            "constraintAttribute": "Type",
+            "autoExpandRelations": false,
+          },
+          "Newsfeed": {
+            "returnAttributes": ["News", "Timestamp", "Publisher"],
+            "constraintAttribute": "Timestamp",
+            "autoExpandRelations": false,
+          },
+          "Twitter": {
+            "returnAttributes": ["Tweet", "Handle", "Timestamp"],
+            "constraintAttribute": "Handle",
+            "autoExpandRelations": false,
+            "resultOrderByAttribute": "Tweet",
+          },
+          "Event": {
+            "returnAttributes": ["Purpose", "Date"],
+            "constraintAttribute": "Date",
+            "autoExpandRelations": false,
+          },
+          "Events": {
+            "returnAttributes": ["Year"],
+            "constraintAttribute": "Year",
+            "autoExpandRelations": false,
+          }
+        };
+
+        // "Movie": {
+        //     "returnAttributes": ["title", "released", "tagline"],
+        //     "constraintAttribute": "title"
+        // },
+        // "Person": {
+        //     "returnAttributes": ["name", "born"],
+        //     "constraintAttribute": "name",
+        //     // Customize result display for Person nodes:
+        //     "displayResults": function (pResultElmt) {
+        //         // Here D3.js mechanisms is used to generate HTML code.
+        //         // By default Popoto.js generates a <p> element for each result.
+        //         // pResultElmt parameter is the <p> element selected with D3.js
+        //         // So for "Person" result nodes two elements are generated:
+        //         // An <h3> element containing the person name
+        //         pResultElmt.append("h3")
+        //             .text(function (result) {
+        //                 return result.attributes.name;
+        //             });
+        //         // A <span> element with the computed age from born attribute
+        //         pResultElmt.filter(function (result) {
+        //             // Filter on attribute having born attribute value
+        //             return result.attributes.born;
+        //         }).append("span").text(function (result) {
+        //             return "Age: " + (new Date().getFullYear() - result.attributes.born);
+        //         });
+        //     }
+        // }
+
+        popoto.provider.link.Provider = {
+          /*customize the text displayed in relationships */
+          "getTextValue": function (link) {
+            if (link.type === popoto.graph.link.LinkTypes.RELATION || link.type === popoto.graph.link.LinkTypes.SEGMENTS) {
+
+              var targetName = "";
+              if (link.type === popoto.graph.link.LinkTypes.SEGMENT) {
+                targetName = " " + popoto.provider.node.getTextValue(link.target);
+              }
+              switch (link.label) {
+                case "IS_BLACKLISTED":
+                  return "Blacklisted" + targetName;
+                case "TWEETS":
+                  return "Tweeted" + targetName;
+                case "Is_BlackListed":
+                  return "blacklisted" + targetName;
+                case "HAS_MONTHLY_TRADE":
+                  return "Monthly trade" + targetName;
+                case "IS_MEMBER":
+                  return "Member of" + targetName;
+                case "IS_TRADING":
+                  return "Trading" + targetName;
+                case "THROUGH":
+                  return "Exchanges on" + targetName;
+                case "CLIENT":
+                  return "Client of" + targetName;
+                case "IS_BROKER":
+                  return "Employee of" + targetName;
+                case "CORPORATE_EVENT":
+                  return "Had events" + targetName;
+                case "FINANCIAL_HISTORY":
+                  return "Financial Overview" + targetName;
+                case "HAS_ACTIONS":
+                  return "Event type" + targetName;
+                case "IS_SELLING":
+                  return "Sold" + targetName;
+                case "IS_BUYING":
+                  return "Bought" + targetName;
+                case "UPDATES":
+                  return "News regarding" + targetName;
+
+                default: //could probably just use this 
+                  return link.label + targetName;
+              }
+            } else {
+              return "";
+            }
+          }
+        };
+
+
+        // Change the number of displayed results:
+        popoto.result.RESULTS_PAGE_SIZE = 450;
+        // Add a listener on returned result count to update count in page
+        popoto.result.onTotalResultCount(function (count) {
+          d3.select("#rescount").text(function (d) {
+            return "(" + count + ")";
+          })
+        });
+        // count used to generate save name and Ids (starts at 4 because of the hardcoded 3 saves in this example)
+        var count = 1;
+        // Add a listener on new relation added
+        popoto.graph.on(popoto.graph.Events.GRAPH_NODE_RELATION_ADD, function (relations) {
+          var newRelation = relations[0];
+          // Collapse all expanded choose nodes first to avoid having value node in selection.
+          popoto.graph.node.collapseAllNode();
+          var linksToRemove = popoto.dataModel.links.filter(function (link) {
+            // All other links starting from same source node except new one.
+            return link !== newRelation && link.source === newRelation.source;
+          });
+          linksToRemove.forEach(function (link) {
+            var willChangeResults = popoto.graph.node.removeNode(link.target);
+            popoto.result.hasChanged = popoto.result.hasChanged || willChangeResults;
+          });
+          popoto.update();
+        });
+        // popoto.tools.TOGGLE_VIEW_RELATION = false;
+
+        // popoto.tools.RESET_GRAPH = true;
+
+
+
+
+        popoto.tools.SAVE_GRAPH = true;
+        popoto.tools.TOGGLE_TAXONOMY = true;
+
+
+     
+        // on Save Code Done BElow
+        popoto.graph.onSave(function (graph) {
+          // generate a unique id
+          var id = "Save " + count++;
+          // save it in JavaScript "saves" var
+          saves[id] = graph;
+          // Update page with the new saved graph item in list with a on click event to illustrate how it can be used.
+          var li = d3.select("#saves")
+            .selectAll("ul")
+            .append("li")
+            .attr("id", id)
+            .on("click", onClickSavedGraph);
+          li.append("span")
+            .attr("class", "ppt-icon ppt-save-tag")
+            .html('&nbsp;');
+          li.append("span")
+            .attr("class", "ppt-label")
+            .attr("title", "Load Graph")
+            .text(id);
+        });
+        var saves = {
+        };
+        /* Add on click event on saved graph li items to update graph accordingly.
+         *
+         */
+        d3.select("#saves").selectAll("li").on("click", onClickSavedGraph);
+        /**
+         * Update popoto default graph
+         */
+        function onClickSavedGraph() {
+          // Update Graph title:
+          d3.select("#save-header").text(d3.select(this).select(".ppt-label").text());
+          popoto.graph.mainLabel = saves[this.id];
+          popoto.tools.reset();
+        }
+        /**
+         * Start popoto.js generation on first saved graph.
+         */
+        popoto.query.RESULTS_PAGE_SIZE = 25;
+
+
+        // Start the generation using parameter as root label of the query.
+        popoto.start("Client");
+      }
+
+
+      render() {
+
+        return (
+          <div>
+            <section className="ppt-section-main">
+
+              <div className="ppt-container-graph">
+                <nav className="ppt-taxo-nav">
+                  <div id="saves">
+                    <span className="ppt-header-span">Saved graphs:</span><br />
+                    <ul className="ppt-taxo-ul">
+
+                    </ul>
+                    <hr />
+                    <br />
+                  </div>
+
+
+                  <div id="popoto-taxonomy">
+                    <span className="ppt-header-span">Taxonomies:</span><br />
+                  </div>
+                </nav>
+
+                <div id="popoto-graph" className="ppt-div-graph">
+                  
+                </div>
+                </div>
+                <div id="vis" className="ppt-div-graph" >
+
+                </div>
+              <div id="popoto-cypher" className="ppt-container-cypher">
+              </div>
+
+              <div className="ppt-section-header">
+                RESULTS <span id="result-total-count" className="ppt-count"></span>
+              </div>
+
+              <div id="popoto-results" className="ppt-container-results">
+              </div>
+
+            </section>
+
+          </div>
+        )
+      }
+    }
+    class Greeting extends React.Component {
+      constructor() {
+        super()
+        this.state = {
+          query_entity: "indi",
+          query_field: "name", // individual, name by default
+          query_text: "",
+          query: "", // pass down as a prop to the Visualization component
+          submission: 0,// count of how many times user has queried,
+        }
+        this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleChange = this.handleChange.bind(this)
+      }
+
+      handleChange(event) {
+        const { name, value } = event.target
+        this.setState({ [name]: value })
+      }
+
+      handleSubmit(event) {
+        event.preventDefault()
+        var queries = {
+
+
+
+
+        }
+        if (this.state.query_entity === 'indi') {
+          if (this.state.query_field === 'name') {
+            this.setState({ query: queries.q1 })
+          } else
+            if (this.state.query_field === 'pan') {
+              this.setState({ query: queries.q2 })
+            } else
+              if (this.state.query_field === 'location') {
+                this.setState({ query: queries.q3 })
+              } else
+                if (this.state.query_field === 'phone') {
+                  this.setState({ query: queries.q4 })
+                } else
+                  if (this.state.query_field === 'email') {
+                    this.setState({ query: queries.q5 })
+                  }
+        } else
+          if (this.state.query_entity === 'bro') {
+            if (this.state.query_field === 'name') {
+              this.setState({ query: queries.q6 })
+            } else
+              if (this.state.query_field === 'sebi') {
+                this.setState({ query: queries.q7 })
+              }
+          }
+          else {
+            this.setState({ query: queries.q8 })
+          }
+
+        this.setState({ submission: this.state.submission + 1 })
+      }
+
+
+      render() {
+        var invalid_query = false // maybe could be a state variable
+        return (
+
+
+          <div className="container-fluid">
+            <div className="animated fadeIn">
+
+
+
+
+              <div className="App">
+
+                {/* <p id="p-text"><strong>Search field: </strong> {this.state.query_text} </p> */}
+                {invalid_query && <p>Please only search for Brokerage Members by Name or SEBI No.</p>}
+                <div className="card-body" >
+                </div>
+                <div className="card ">
+                  <div className="Vis-container">
+
+                    <Popoto />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      }
+    } ReactDOM.render(
+      <Greeting />,
+      document.getElementById('root')
+    );
+  </script>
+
+</head>
+
+<body>
+
+  <div class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
+    <header class="app-header navbar">
+      <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div>
+        <img src="./static/img/logo_white.png" class="navbar-brand" alt="NseitLogo"
+          style="width: 100px; height: 42.68px; margin-left: 10px;">
+      </div>
+
+
+    </header>
+    <div class="app-body">
+      <div class="sidebar">
+        <nav class="sidebar-nav">
+          <ul class="nav">
+            <li class="nav-title">Report</li>
+            <li class="nav-item">
+              <a class="nav-link" href="/index1.html">
+                <i class="nav-icon icon-user"></i> Client Profiling
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/circulartrading.html">
+                <i class="nav-icon icon-refresh"></i> Circular Trading
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="insidertrading.html">
+                <i class="nav-icon icon-map"></i> Insider Trading</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="tweet.html">
+                <i class="nav-icon icon-social-twitter"></i>Tweets Data</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="NEWS.html">
+                <i class="nav-icon icon-globe"></i>News Data</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="WholeGraph.html">
+                <i class="nav-icon icon-size-fullscreen"></i> All Data</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <main class="main">
+
+
+
+
+
+        <div id="root"></div>
+
+
+
+
+
+
+      </main>
+
+
+
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+
+</body>
+
+</html>
