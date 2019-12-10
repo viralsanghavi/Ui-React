@@ -294,8 +294,14 @@
                 </div>
                 <div className="card ">
                   <div className="Vis-container">
-
-                    <Visualization query={"Match (company1:Company)<-[R1:IS_MEMBER]-(client1:Client)-[R2:IS_SELLING]->(trade1:Trade),(client1)-[R3:HAS_ADDRESS]->(add1:Address),(company2:Company)<-[R4:IS_MEMBER]-(client2:Client)-[R5:IS_BUYING]->(trade2:Trade),(client2)-[R6:HAS_ADDRESS]->(add2:Address)Where (trade1.Volume*0.9 = trade2.Volume AND company1.Name = company2.Name) OR (trade1.Volume*0.9 = trade2.Volume AND add1.City=add2.City)Return *"} id="viz" />
+                    <button className="down">
+                          <a className='anchor icon-cloud-download' download="circular.csv" href="static/img/circular.csv">
+                            </a>
+                        </button>
+                      
+                    <Visualization query={"Match (company1:Company)<-[R1:IS_MEMBER]-(client1:Client)-[R2:IS_SELLING]->(trade1:Trade),(client1)-[R3:HAS_ADDRESS]->(add1:Address),(company2:Company)<-[R4:IS_MEMBER]-(client2:Client)-[R5:IS_BUYING]->(trade2:Trade),(client2)-[R6:HAS_ADDRESS]->(add2:Address)Where (trade1.Volume*0.9 = trade2.Volume AND company1.Name = company2.Name) OR (trade1.Volume*0.9 = trade2.Volume AND add1.City=add2.City)Return *"} id="viz" 
+                    
+                    />
                   </div>
                 </div>
               </div>
@@ -359,10 +365,10 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" href="WholeGraph.html">
-                <i class="nav-icon icon-size-fullscreen"></i> All Data</a>
+                <i class="nav-icon icon-target"></i>  Analysis</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="WholeGraph.html">
+              <a class="nav-link" href="Visofall.html">
                 <i class="nav-icon icon-size-fullscreen"></i> All Data</a>
             </li>
           </ul>

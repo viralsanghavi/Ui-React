@@ -164,6 +164,9 @@
 
 
         this.setState({ submission: this.state.submission + 1 })
+
+
+
       }
 
 
@@ -198,10 +201,16 @@
                         </select>
                         <span>&nbsp;</span>
 
-                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <span>&nbsp;&nbsp;&nbsp;</span>
                         <label id="query-space">
                         </label> <span>&nbsp;</span>
                         <input type="submit" value="Search" />
+                        <span> &nbsp; </span>
+                        <button className="down1">
+                          <a className='anchor icon-cloud-download' download="insider1.csv" href="static/img/insider1.csv">
+                          </a>
+                        </button>
+
                       </form>
                       {/* <form onSubmit={this.handleCircularSubmit} encType="multipart/form-data">
               query search code pasted up
@@ -215,7 +224,8 @@
                 <div className="card ">
                   <div className="Vis-container">
 
-                    {this.state.submission > 0 && <Visualization query={this.state.query} id="viz" />}
+                    {this.state.submission > 0 && <Visualization query={this.state.query} id="viz" />
+                    }
                   </div>
                 </div>
               </div>
@@ -279,10 +289,10 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" href="WholeGraph.html">
-                <i class="nav-icon icon-size-fullscreen"></i> All Data</a>
+                <i class="nav-icon icon-target"></i> Analysis</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="WholeGraph.html">
+              <a class="nav-link" href="Visofall.html">
                 <i class="nav-icon icon-size-fullscreen"></i> All Data</a>
             </li>
           </ul>

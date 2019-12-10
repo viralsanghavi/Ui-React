@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Nse Fraud Detection</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Place favicon.ico and apple-touch-icon(s) in the root directory -->
+  <link rel="shortcut icon" href="images/favicon.ico">
+
+  <!-- stylesheets -->
+  <link href="static/css/flag-icon-css/css/flag-icon.min.css" rel="stylesheet">
+  <link href="static/css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="static/css/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+  <link href="static/css/style.css" rel="stylesheet">
+
+  <!-- javascript -->
+  <script src="static/js/popper.js/dist/umd/popper.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="static/bootstrap/js/bootstrap.min.js"></script>
+  <script src="static/js/pace-progress/pace.min.js"></script>
+  <script src="static/js/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
+  <script src="static/js/%40coreui/coreui/dist/js/coreui.min.js"></script>
+  <script src="static/js/chatbot.js"></script>
+
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
+  <script src="https://cdn.neo4jlabs.com/neovis.js/v1.2.1/neovis.js"></script>
+
+  <script type="text/babel">
+
+    class Visualization extends React.Component {
+      // constructor(props) {
+      // 	super(props)
+      // }
+
+      componentDidMount() {
+        var config = {
+          container_id: this.props.id,
+          server_url: "bolt://172.25.11.96:7687",
+          server_user: "neo4j",
+          server_password: "12345",
+          initial_cypher: this.props.query,
+          // arrows: true,
+          labels: {
+            "Address": {
+              "caption": "first_name",
+            },
+            "Blacklist": {
+              "caption": "first_name",
+            },
+            "Broker": {
+              "caption": "first_name",
+            },
+            "Brokercompany": {
+              "caption": "first_name",
+            },
+            "Client": {
+              "caption": "first_name",
+            },
+            "Company": {
+              "caption": "first_name",
+            },
+            "DailyBalance": {
+              "caption": "first_name",
+            },
+            "Email": {
+              "caption": "first_name",
+            },
+            "Event": {
+              "caption": "first_name",
+            },
+            "Events": {
+              "caption": "first_name",
+            },
+            "Exchange Company": {
+              "caption": "first_name",
+            },
+            "FinancialOverview": {
+              "caption": "first_name",
+            },
+            "FundsBalance": {
+              "caption": "first_name",
+            },
+            "MonthlyBalance": {
+              "caption": "first_name",
+            },
+            "MonthlyTrade": {
+              "caption": "first_name",
+            },
+            "MonthlyTransaction": {
+              "caption": "first_name",
+            },
+            "Newsfeed": {
+              "caption": "first_name",
+            },
+            "Pan": {
+              "caption": "first_name",
+            },
+            "PhoneNumber": {
+              "caption": "first_name",
+            },
+            "SecurityBalance": {
+              "caption": "first_name",
+            },
+            "Trade": {
+              "caption": "first_name",
+            },
+            "Twitter": {
+              "caption": "first_name",
+            },
+          },
+          relationships: {
+            "CORPORATE_EVENT": {
+              "caption": false,
+            },
+            "FINANCIAL_HISTORY": {
+              "caption": false,
+            },
+            "HAS_ACTIONS": {
+              "caption": false,
+            },
+            "HAS_ADDRESS": {
+              "caption": false,
+            },
+            "HAS_BALANCE": {
+              "caption": false,
+            },
+            "HAS_EMAILID": {
+              "caption": false,
+            },
+            "HAS_MONTHLY_TRADE": {
+              "caption": false,
+            },
+            "HAS_MONTHLY_TRANSACTION": {
+              "caption": false,
+            },
+            "HAS_PAN_NO": {
+              "caption": false,
+            },
+            "HAS_PHONENUMBER": {
+              "caption": false,
+            },
+            "IS_BLACKLISTED": {
+              "caption": false,
+            },
+            "IS_BROKER": {
+              "caption": false,
+            },
+            "IS_BUYING": {
+              "caption": false,
+            },
+            "IS_MEMBER": {
+              "caption": false,
+            },
+            "IS_SELLING": {
+              "caption": false,
+            },
+            "IS_TRADING": {
+              "caption": false,
+            },
+            "THROUGH": {
+              "caption": false,
+            },
+            "TWEETS": {
+              "caption": false,
+            },
+            "UPDATES": {
+              "caption": false,
+            },
+          },
+        }
+        var viz = new NeoVis.default(config);
+        viz.render();
+      }
+
+      componentDidUpdate(prevProps) {
+        if (this.props.query !== prevProps.query) {
+          var config = {
+            container_id: this.props.id,
+            server_url: "bolt://172.25.11.96:7687",
+            server_user: "neo4j",
+            server_password: "12345",
+            initial_cypher: this.props.query,
+            // arrows: true,
+            labels: {
+              "Address": {
+                "caption": "first_name",
+              },
+              "Blacklist": {
+                "caption": "first_name",
+              },
+              "Broker": {
+                "caption": "first_name",
+              },
+              "Brokercompany": {
+                "caption": "first_name",
+              },
+              "Client": {
+                "caption": "Name",
+              },
+              "Company": {
+                "caption": "Name",
+              },
+              "DailyBalance": {
+                "caption": "first_name",
+              },
+              "DailyBalance": {
+                "caption": "first_name",
+              },
+              "Email": {
+                "caption": "first_name",
+              },
+              "Event": {
+                "caption": "first_name",
+              },
+              "Events": {
+                "caption": "first_name",
+              },
+              "Exchange Company": {
+                "caption": "first_name",
+              },
+              "FinancialOverview": {
+                "caption": "first_name",
+              },
+              "FundsBalance": {
+                "caption": "first_name",
+              },
+              "MonthlyBalance": {
+                "caption": "first_name",
+              },
+              "MonthlyTrade": {
+                "caption": "first_name",
+              },
+              "MonthlyTransaction": {
+                "caption": "first_name",
+              },
+              "Newsfeed": {
+                "caption": "first_name",
+              },
+              "Pan": {
+                "caption": "first_name",
+              },
+              "PhoneNumber": {
+                "caption": "first_name",
+              },
+              "SecurityBalance": {
+                "caption": "first_name",
+              },
+              "Trade": {
+                "caption": "first_name",
+              },
+              "Twitter": {
+                "caption": "first_name",
+              },
+            },
+            relationships: {
+              "CORPORATE_EVENT": {
+                "caption": false,
+              },
+              "FINANCIAL_HISTORY": {
+                "caption": false,
+              },
+              "HAS_ACTIONS": {
+                "caption": false,
+              },
+              "HAS_ADDRESS": {
+                "caption": false,
+              },
+              "HAS_BALANCE": {
+                "caption": false,
+              },
+              "Balance": {
+                "caption": false,
+              },
+              "HAS_EMAILID": {
+                "caption": false,
+              },
+              "HAS_MONTHLY_TRADE": {
+                "caption": false,
+              },
+              "HAS_MONTHLY_TRANSACTION": {
+                "caption": false,
+              },
+              "HAS_PAN_NO": {
+                "caption": false,
+              },
+              "HAS_PHONENUMBER": {
+                "caption": false,
+              },
+              "IS_BLACKLISTED": {
+                "caption": false,
+              },
+              "IS_BROKER": {
+                "caption": false,
+              },
+              "IS_BUYING": {
+                "caption": false,
+              },
+              "IS_MEMBER": {
+                "caption": false,
+              },
+              "IS_SELLING": {
+                "caption": false,
+              },
+              "IS_TRADING": {
+                "caption": false,
+              },
+              "THROUGH": {
+                "caption": false,
+              },
+              "TWEETS": {
+                "caption": false,
+              },
+              "UPDATES": {
+                "caption": false,
+              },
+            },
+          }
+          var viz = new NeoVis.default(config);
+          viz.render();
+        }
+      }
+
+      render() {
+        const style = {
+          width: "100%",
+          height: "550px",
+          border: "2px solid lightgray",
+          font: "22pt Montserrat",
+        }
+
+        return (
+          <div
+            id={this.props.id}
+            style={style}
+          />
+
+        )
+      }
+    }
+    class Greeting extends React.Component {
+      constructor() {
+        super()
+        this.state = {
+          query_entity: "indi",
+          query_field: "name", // individual, name by default
+          query_text: "",
+          query: "", // pass down as a prop to the Visualization component
+          submission: 0,// count of how many times user has queried,
+        }
+        this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleChange = this.handleChange.bind(this)
+        this.handleCircularSubmit = this.handleCircularSubmit.bind(this)
+        this.handleInsiderSubmit = this.handleInsiderSubmit.bind(this)
+      }
+
+      handleChange(event) {
+        const { name, value } = event.target
+        this.setState({ [name]: value })
+      }
+
+      handleSubmit(event) {
+        event.preventDefault()
+        var queries = {
+          q1: `MATCH (a) WHERE (a:Client_profile OR a:Authorized_Person) AND (a.first_name CONTAINS '${this.state.query_text}' OR a.last_name CONTAINS '${this.state.query_text}') WITH a 
+            OPTIONAL MATCH (a)-[r1:HAS_ADDRESS]->(add:address) OPTIONAL MATCH (a)-[r2:HAS_PAN]->(pan:PAN) 
+            OPTIONAL MATCH (a)-[r3:HAS_PHONENo]->(p:phone) OPTIONAL MATCH (a)-[r4:HAS_EMAILID]->(e:email) 
+            OPTIONAL MATCH (a)-[r4:Acc_Sum]->(acc:Acc_summary) OPTIONAL MATCH (a)<-[r5:Is_BlackListed]-(bl:Blacklist) 
+            OPTIONAL MATCH (a)<-[r6:CLIENT]-()<-[:EMPLOYEE]-(br:Brokerage_Members) OPTIONAL MATCH (a)<-[r7:EMPLOYEE]-(br_e:Brokerage_Members) 
+            RETURN labels(a) as label, a.first_name as first_name, a.last_name as last_name, a, add, pan, p, e, acc, bl, br, br_e, r1, r2, r3, r4, r5, r6, r7`,
+
+          q2: `MATCH (pan:PAN)<-[r1:HAS_PAN]-(a:Authorized_Person) WHERE (pan.PAN_no CONTAINS '${this.state.query_text}') WITH a, pan, r1 
+            OPTIONAL MATCH (a)-[r2:HAS_ADDRESS]->(add:address) OPTIONAL MATCH (a)-[r3:HAS_PHONENo]->(p:phone) 
+            OPTIONAL MATCH (a)-[r4:HAS_EMAILID]->(e:email) OPTIONAL MATCH (a)-[r5:Acc_Sum]->(acc:Acc_summary) 
+            OPTIONAL MATCH (a)<-[r6:Is_BlackListed]-(bl:Blacklist) OPTIONAL MATCH (a)<-[r7:EMPLOYEE]-(br_e:Brokerage_Members) 
+            OPTIONAL MATCH (a)<-[r8:CLIENT]-()<-[:EMPLOYEE]-(br:Brokerage_Members) 
+            RETURN labels(a) as label, a.first_name as first_name, a.last_name as last_name, a, add, pan, p, e, acc, bl, br, br_e, r1, r2, r3, r4, r5, r6, r7, r8 
+            UNION MATCH (pan:PAN)<-[r1:HAS_PAN]-(a:Client_profile) WHERE (pan.PAN_no CONTAINS '${this.state.query_text}') WITH a, pan, r1
+            OPTIONAL MATCH (a)-[r2:HAS_ADDRESS]->(add:address) OPTIONAL MATCH (a)-[r3:HAS_PHONENo]->(p:phone) 
+            OPTIONAL MATCH (a)-[r4:HAS_EMAILID]->(e:email) OPTIONAL MATCH (a)-[r5:Acc_Sum]->(acc:Acc_summary) 
+            OPTIONAL MATCH (a)<-[r6:Is_BlackListed]-(bl:Blacklist) OPTIONAL MATCH (a)<-[r7:EMPLOYEE]-(br_e:Brokerage_Members) 
+            OPTIONAL MATCH (a)<-[r8:CLIENT]-()<-[:EMPLOYEE]-(br:Brokerage_Members) 
+            RETURN labels(a) as label, a.first_name as first_name, a.last_name as last_name, a, add, pan, p, e, acc, bl, br, br_e, r1, r2, r3, r4, r5, r6, r7, r8`,
+
+          q3: `MATCH (add:address)<-[r1:HAS_ADDRESS]-(a:Authorized_Person) WHERE (add.city CONTAINS '${this.state.query_text}' OR add.state CONTAINS '${this.state.query_text}' OR add.street contains '${this.state.query_text}') WITH a, add, r1
+            OPTIONAL MATCH (a)-[r2:HAS_PAN]->(pan:PAN) OPTIONAL MATCH (a)-[r3:HAS_PHONENo]->(p:phone) 
+            OPTIONAL MATCH (a)-[r4:HAS_EMAILID]->(e:email) OPTIONAL MATCH (a)-[r5:Acc_Sum]->(acc:Acc_summary) 
+            OPTIONAL MATCH (a)<-[r6:Is_BlackListed]-(bl:Blacklist) OPTIONAL MATCH (a)<-[r7:EMPLOYEE]-(br_e:Brokerage_Members) 
+            OPTIONAL MATCH (a)<-[r8:CLIENT]-()<-[:EMPLOYEE]-(br:Brokerage_Members) 
+            RETURN labels(a) as label, a.first_name as first_name, a.last_name as last_name, a, add, pan, p, e, acc, bl, br, br_e, r1, r2, r3, r4, r5, r6, r7, r8
+            UNION MATCH (add:address)<-[r1:HAS_ADDRESS]-(a:Client_profile) WHERE (add.city CONTAINS '${this.state.query_text}' OR add.state CONTAINS '${this.state.query_text}' OR add.street contains '${this.state.query_text}') WITH a, add, r1
+            OPTIONAL MATCH (a)-[r2:HAS_PAN]->(pan:PAN) OPTIONAL MATCH (a)-[r3:HAS_PHONENo]->(p:phone) 
+            OPTIONAL MATCH (a)-[r4:HAS_EMAILID]->(e:email) OPTIONAL MATCH (a)-[r5:Acc_Sum]->(acc:Acc_summary) 
+            OPTIONAL MATCH (a)<-[r6:Is_BlackListed]-(bl:Blacklist) OPTIONAL MATCH (a)<-[r7:EMPLOYEE]-(br_e:Brokerage_Members) 
+            OPTIONAL MATCH (a)<-[r8:CLIENT]-()<-[:EMPLOYEE]-(br:Brokerage_Members) 
+            RETURN labels(a) as label, a.first_name as first_name, a.last_name as last_name, a, add, pan, p, e, acc, bl, br, br_e, r1, r2, r3, r4, r5, r6, r7, r8`  ,
+
+          q4: `MATCH (p:phone)<-[r1:HAS_PHONENo]-(a:Authorized_Person) WHERE (p.phone_number = toInteger('${this.state.query_text}')) WITH a, p, r1
+            OPTIONAL MATCH (a)-[r2:HAS_PAN]->(pan:PAN) OPTIONAL MATCH (a)-[r3:HAS_ADDRESS]->(add:address) 
+            OPTIONAL MATCH (a)-[r4:HAS_EMAILID]->(e:email) OPTIONAL MATCH (a)-[r5:Acc_Sum]->(acc:Acc_summary) 
+            OPTIONAL MATCH (a)<-[r6:Is_BlackListed]-(bl:Blacklist) OPTIONAL MATCH (a)<-[r7:EMPLOYEE]-(br_e:Brokerage_Members) 
+            OPTIONAL MATCH (a)<-[r8:CLIENT]-()<-[:EMPLOYEE]-(br:Brokerage_Members) 
+            RETURN labels(a) as label, a.first_name as first_name, a.last_name as last_name, a, add, pan, p, e, acc, bl, br, br_e, r1, r2, r3, r4, r5, r6, r7, r8 
+            UNION MATCH (p:phone)<-[r1:HAS_PHONENo]-(a:Client_profile) WHERE (p.phone_number = toInteger('${this.state.query_text}')) WITH a, p, r1
+            OPTIONAL MATCH (a)-[r2:HAS_PAN]->(pan:PAN) OPTIONAL MATCH (a)-[r3:HAS_ADDRESS]->(add:address) 
+            OPTIONAL MATCH (a)-[r4:HAS_EMAILID]->(e:email) OPTIONAL MATCH (a)-[r5:Acc_Sum]->(acc:Acc_summary) 
+            OPTIONAL MATCH (a)<-[r6:Is_BlackListed]-(bl:Blacklist) OPTIONAL MATCH (a)<-[r7:CLIENT]-()<-[:EMPLOYEE]-(br:Brokerage_Members) 
+            OPTIONAL MATCH (a)<-[r8:EMPLOYEE]-(br_e:Brokerage_Members) 
+            RETURN labels(a) as label, a.first_name as first_name, a.last_name as last_name, a, add, pan, p, e, acc, bl, br, br_e, r1, r2, r3, r4, r5, r6, r7, r8`  ,
+
+          q5: `MATCH (e:email)<-[r1:HAS_EMAILID]-(a:Authorized_Person) WHERE (e.email_id CONTAINS '${this.state.query_text}') WITH a, e, r1
+            OPTIONAL MATCH (a)-[r2:HAS_PAN]->(pan:PAN) 
+            OPTIONAL MATCH (a)-[r3:HAS_ADDRESS]->(add:address) OPTIONAL MATCH (a)-[r4:HAS_PHONENo]->(p:phone) 
+            OPTIONAL MATCH (a)-[r5:Acc_Sum]->(acc:Acc_summary) OPTIONAL MATCH (a)<-[r6:Is_BlackListed]-(bl:Blacklist) 
+            OPTIONAL MATCH (a)<-[r7:EMPLOYEE]-(br_e:Brokerage_Members) OPTIONAL MATCH (a)<-[r8:CLIENT]-()<-[:EMPLOYEE]-(br:Brokerage_Members) 
+            RETURN labels(a) as label, a.first_name as first_name, a.last_name as last_name, a, add, pan, p, e, acc, bl, br, br_e, r1, r2, r3, r4, r5, r6, r7, r8
+            UNION MATCH (e:email)<-[r1:HAS_EMAILID]-(a:Client_profile) WHERE (e.email_id CONTAINS '${this.state.query_text}') WITH a, e, r1
+            OPTIONAL MATCH (a)-[r2:HAS_PAN]->(pan:PAN) 
+            OPTIONAL MATCH (a)-[r3:HAS_ADDRESS]->(add:address) OPTIONAL MATCH (a)-[r4:HAS_PHONENo]->(p:phone) 
+            OPTIONAL MATCH (a)-[r5:Acc_Sum]->(acc:Acc_summary) OPTIONAL MATCH (a)<-[r6:Is_BlackListed]-(bl:Blacklist) 
+            OPTIONAL MATCH (a)<-[r7:EMPLOYEE]-(br_e:Brokerage_Members) OPTIONAL MATCH (a)<-[r8:CLIENT]-()<-[:EMPLOYEE]-(br:Brokerage_Members) 
+            RETURN labels(a) as label, a.first_name as first_name, a.last_name as last_name, a, add, pan, p, e, acc, bl, br, br_e, r1, r2, r3, r4, r5, r6, r7, r8` ,
+
+          q6: `MATCH (b:Brokerage_Members)-[r1:EMPLOYEE]->(a:Authorized_Person) WHERE b.name CONTAINS '${this.state.query_text}' WITH a, b, r1
+            OPTIONAL MATCH (b)-[r2:WORKS_FOR]->(c:Client_profile) WHERE b.name CONTAINS '${this.state.query_text}' RETURN a, b, c, r1, r2`,
+
+
+          q7: `MATCH (b:Brokerage_Members)-[r1:EMPLOYEE]->(a:Authorized_Person) WHERE b.SEBI_NO CONTAINS '${this.state.query_text}' WITH a, b, r1
+            OPTIONAL MATCH (b)-[r2:WORKS_FOR]->(c:Client_profile) WHERE b.SEBI_NO CONTAINS '${this.state.query_text}' RETURN a, b, c, r1, r2`,
+
+          q9: `MATCH (n) return n`,
+        }
+        if (this.state.query_entity === 'indi') {
+          if (this.state.query_field === 'name') {
+            this.setState({ query: queries.q1 })
+          } else
+            if (this.state.query_field === 'pan') {
+              this.setState({ query: queries.q2 })
+            } else
+              if (this.state.query_field === 'location') {
+                this.setState({ query: queries.q3 })
+              } else
+                if (this.state.query_field === 'phone') {
+                  this.setState({ query: queries.q4 })
+                } else
+                  if (this.state.query_field === 'email') {
+                    this.setState({ query: queries.q5 })
+                  }
+        } else
+          if (this.state.query_entity === 'bro') {
+            if (this.state.query_field === 'name') {
+              this.setState({ query: queries.q6 })
+            } else
+              if (this.state.query_field === 'sebi') {
+                this.setState({ query: queries.q7 })
+              }
+          }
+          else {
+            this.setState({ query: queries.q8 })
+          }
+
+        this.setState({ submission: this.state.submission + 1 })
+      }
+
+      handleCircularSubmit(event) {
+        event.preventDefault()
+        var circular_query = "MATCH (a:AccountHolder)-[:HAS_ADDRESS]->(add:Address)<-[:HAS_ADDRESS]-(b:AccountHolder) OPTIONAL MATCH (a)-[:BUY_ORDER]->(s1:ShareDetail) OPTIONAL MATCH (b)-[:SELL_ORDER]->(s2:ShareDetail) WITH a, b, s1, s2, add WHERE (s1.BuyingSharesOf = s2.SellingSharesOf) AND (5 > toInteger(split(s1.Trading_Date, '/')[0]) - toInteger(split(s2.Trading_Date,'/')[0]) > 0) RETURN a, b, s1, s2"
+
+
+        this.setState({ query: circular_query })
+        this.setState({ submission: this.state.submission + 1 })
+      }
+
+      handleInsiderSubmit(event) {
+        event.preventDefault()
+        var insider_query = "MATCH (to:TradeOrder)<-[t:TRADE_ON]-(acc:AccountHolder)-[id:IS_DIRECTOR]->(com:company)-[e1:HAS_EVENT]->(e:EventABC)-[e2:HAS_EVENT1]->(b:EventABC1) WHERE(t.tradedate < b.Date) RETURN acc, com, to, e, b"
+        this.setState({ query: insider_query })
+        this.setState({ submission: this.state.submission + 1 })
+      }
+
+      render() {
+        var invalid_query = false // maybe could be a state variable
+        if (this.state.query_entity === 'bro') {
+          if ((this.state.query_field === 'location') || (this.state.query_field === 'pan')) {
+            invalid_query = true
+          }
+        }
+
+        return (
+
+
+          <div className="container-fluid">
+            <div className="animated fadeIn">
+
+
+
+
+              <div className="App">
+
+                {/* <p id="p-text"><strong>Search field: </strong> {this.state.query_text} </p> */}
+                {invalid_query && <p>Please only search for Brokerage Members by Name or SEBI No.</p>}
+                <div className="card-body" >
+                </div>
+                <div className="card ">
+                  <div className="Vis-container">
+                    <button className="down">
+                      <a className='anchor icon-cloud-download' download="Alldata.csv" href="static/img/Alldata.csv">
+                      </a>
+                    </button>
+                    <Visualization query={"Match (n)-[a]->(b) return *"} id="viz" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      }
+    } ReactDOM.render(
+      <Greeting />,
+      document.getElementById('root')
+    );
+  </script>
+
+</head>
+
+<body>
+
+  <div class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
+    <header class="app-header navbar">
+      <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div>
+        <img src="./static/img/logo_white.png" class="navbar-brand" alt="NseitLogo"
+          style="width: 100px; height: 42.68px; margin-left: 10px;">
+      </div>
+
+
+    </header>
+    <div class="app-body">
+      <div class="sidebar">
+        <nav class="sidebar-nav">
+          <ul class="nav">
+            <li class="nav-title">Report</li>
+            <li class="nav-item">
+              <a class="nav-link" href="/index1.html">
+                <i class="nav-icon icon-user"></i> Client Profiling
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/circulartrading.html">
+                <i class="nav-icon icon-refresh"></i> Circular Trading
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="insidertrading.html">
+                <i class="nav-icon icon-map"></i> Insider Trading</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="tweet.html">
+                <i class="nav-icon icon-social-twitter"></i>Tweets Data</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="NEWS.html">
+                <i class="nav-icon icon-globe"></i>News Data</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="WholeGraph.html">
+                <i class="nav-icon icon-target"></i> Analysis</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="Visofall.html">
+                <i class="nav-icon icon-size-fullscreen"></i> All Data</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <main class="main">
+
+
+
+
+
+        <div id="root"></div>
+
+
+
+
+
+
+      </main>
+
+
+
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+
+</body>
+
+</html>

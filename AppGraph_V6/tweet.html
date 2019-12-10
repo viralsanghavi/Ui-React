@@ -67,7 +67,7 @@
               "caption": "Name",
             },
             "Company": {
-              "caption": "first_name",
+              "caption": "Name",
             },
             "DailyBalance": {
               "caption": "first_name",
@@ -115,7 +115,7 @@
               "caption": "first_name",
             },
             "Twitter": {
-              "caption": "first_name",
+              "caption": "",
             },
           },
           relationships: {
@@ -259,7 +259,7 @@
                 "caption": "first_name",
               },
               "Twitter": {
-                "caption": "first_name",
+                "caption": "Publisher",
               },
             },
             relationships: {
@@ -421,6 +421,11 @@
                         <input type='date' name='query_dateFrom' id="display-text" value={this.state.query_dateFrom} onChange={this.handleChange} />
                         <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
                         <input type="submit" value="Submit query" />
+                        <span>&nbsp;&nbsp;</span>
+                        <button className="down1">
+                          <a className='anchor icon-cloud-download' download="Tweets.xlt" href="static/img/Tweets.xlt">
+                          </a>
+                        </button>
                       </form>
                       {/* <form onSubmit={this.handleCircularSubmit} encType="multipart/form-data">
               query search code pasted up
@@ -433,6 +438,7 @@
 
                 <div className="card ">
                   <div className="Vis-container">
+
                     {this.state.submission > 0 && <Visualization query={this.state.query} id="viz" />}
                   </div>
                 </div>
@@ -495,10 +501,10 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" href="WholeGraph.html">
-                <i class="nav-icon icon-size-fullscreen"></i> All Data</a>
+                <i class="nav-icon icon-target"></i> Analysis</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="WholeGraph.html">
+              <a class="nav-link" href="Visofall.html">
                 <i class="nav-icon icon-size-fullscreen"></i> All Data</a>
             </li>
           </ul>

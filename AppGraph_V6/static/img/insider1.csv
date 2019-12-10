@@ -1,0 +1,29 @@
+CLIENT-1,                  CLIENT-2
+Name:Sally Waston,Name:    Deepak Mishra
+Age:54,Age:3
+Gender:Male,Gender:Male
+Designation:Director,Designation:Director
+Join_Date:16-05-2000,",Join_Date:11-11-2001"
+UniqueId:11399,UniqueId:10054
+,
+COMPANY-1,COMPANY-2
+Name:Tata Motors Ltd.,Name:ITC Ltd.
+ISIN:INE155A01022,ISIN:INE154A01025
+Location:Mumbai,Location:Mumbai
+NSE:TATAMOTORS,NSE:ITC
+Email:inv_rel@tatamotors.com,Email:enduringvalue@itc.in
+BSE:500570,BSE:500875
+Sector:Auto,Sector:Consumer
+,
+EVENT-1,EVENT-1
+Purpose:Board Meeting,Purpose:Board Meeting
+"Date:""2019-11-23""","Date:""2019-11-17"""
+"Year:""2019-01-01""","Year:""2019-01-01"""
+,
+TRADE-2,TRADE-2
+Type:Sell,Type:Sell
+ISIN No:INE860A01042,ISIN No:INE860A01042
+Symbol:HCL,Symbol:HCL
+"Date:""2019-11-09""","Date:""2019-11-09"""
+Volume:34500,Volume:34500
+Amount:3450000,Amount:3450000
