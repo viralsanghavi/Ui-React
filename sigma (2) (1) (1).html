@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>sigma.js</title>
+  <!-- scripts -->
+  <script src="https://unpkg.com/neo4j-driver"></script>
+  <script src="https://cdn.jsdelivr.net/npm/neo4j-driver"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sigma.js/1.2.1/sigma.min.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/neo4j-driver@1.5.3/lib/browser/neo4j-web.min.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sigma.js/1.2.1/plugins/sigma.parsers.json.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sigma.js/1.2.1/plugins/sigma.neo4j.cypher.min.js"></script>
+  <style>
+    #graph-container {
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      position: absolute;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <div id="graph-container"></div>
+  </div>
+
+  <script type="application/javascript">
+
+    var driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic('neo4j', '12345'))
+    var session = driver.session({ defaultAccessMode: neo4j.session.READ })
+
+    //       function  printr(record) {
+    //       if (!console) {
+    //           console = {};
+    //       }
+    //       var old = console.log;
+    //       var logger = document.getElementById('container');
+    //       console.log = function () {
+    //             for (var i = 0; i < arguments.length; i++) {
+    //             if (typeof arguments[i] == 'object') {
+    //                 logger.innerHTML += (JSON && JSON.stringify ? JSON.stringify(arguments[i], undefined, 2) : arguments[i]) + '<br />';
+    //             } else {
+    //                 logger.innerHTML += arguments[i] + '<br />';
+    //             }
+    //           }
+    //   };
+    // }
+    //   printr();
+
+
+
+    function consumeNode(record) {
+      var id = "n" + record.identity.low.toString()
+      var properties = record.properties
+      var label = record.labels[0]
+      return {
+        'id': id,
+        'label': label,
+        'x': Math.random(),
+        'y': Math.random(),
+        'properties': properties
+      }
+    }
+
+    function consumeEdge(record) {
+      var id = "e" + record.identity.low.toString()
+      var source = "n" + record.start.low.toString()
+      var target = "n" + record.end.low.toString()
+      var type = record.type
+      return {
+        'id': id,
+        'source': source,
+        'target': target,
+        'type': type
+      }
+    }
+
+
+    const data = {
+      'nodes': [],
+      'edges': []
+    }
+    // console.log(data.nodes);
+
+
+    // var nodes = []
+    // var edges = []
+
+    var query = session.run('MATCH (n) WHERE n.Name CONTAINS "Des" RETURN n')
+      .then(result => result.records.forEach(record => data.nodes.push(consumeNode(record.get('n')))))
+      .then(() => session.run('MATCH (n)-[r]-(m) RETURN r'))
+      .then(result => result.records.forEach(record => data.edges.push(consumeEdge(record.get('r')))))
+
+    console.log(data.nodes)
+    console.log(data.edges)
+    //console.log(data.)
+
+
+
+    var sig = new sigma(
+      {
+        renderer: {
+          container: document.getElementById('graph-container'),
+          type: 'canvas'
+        },
+        settings: {
+          minEdgeSize: 0.1,
+          maxEdgeSize: 2,
+          minNodeSize: 1,
+          maxNodeSize: 8,
+        }
+      }
+    );
+    
+    // sig.graph.addNode({
+    //   // Main attributes:
+    //   // id: toString(consumeNode(['n0'])),
+    //   id: 'n20',
+    //   label: data.nodes.label,
+    //   // Display attributes:
+    //   x: 0,
+    //   y: 0,
+    //   size: 1,
+    //   color: '#f00'
+    // }).addNode({
+    //   // Main attributes:
+    //   id
+    //   // id: toString(consumeNode(['n0'])),
+    //   label: data.nodes.label,
+    //   // Display attributes:
+    //   x: 0,
+    //   y: 0,
+    //   size: 1,
+    //   color: '#f00'
+    // }).addEdge({
+    //   id: 'e0',
+    //   // Reference extremities:
+    //   source: 'n0',
+    //   target: 'n1'
+    // });
+
+    // // Finally, let's ask our sigma instance to refresh:
+    // sig.refresh();
+    //      s.graph.addNode({
+    //   id: (id = (++nId) + ''),
+    //   size: nodeRadius,
+    //   x: x + Math.random() / 10,
+    //   y: y + Math.random() / 10,
+    //   dX: 0,
+    //   dY: 0,
+    //   type: 'goo' 
+    // });
+
+    // var a = sig.graph.addNode({ id: [n7] })
+    // console.log(a)
+    data.nodes.forEach(node => sig.graph.addNode(node))
+    data.edges.forEach(edge => sig.graph.addEdge(edge))
+
+
+    //     var graph = {
+    //   nodes: [
+    //     { id: "n0", label: "A node", x: 0, y: 0, size: 3, color: '#008cc2' },
+    //   ],
+    //   edges: [
+    //     { id: "e0", source: "n0", target: "n0", color: '#282c34', type: 'line', size: 0.5 },
+    //   ]
+    // }
+    // for (const node of data.nodes) {
+    //   sig.graph.addNode(node)
+    // }
+
+
+
+    // for (const edge of data.edges) {
+    //   sig.graph.addEdge(edge)
+    // }
+
+
+
+
+    // console.log(graph['nodes'])
+    // console.log(graph['edges'])
+
+    // Initialise sigma:
+    sig.graph.read(data)
+    // Load the graph in sigma
+    sig.refresh()
+
+      // Test to print it on screen
+      
+
+
+
+    console.log(sig.graph.nodes())
+    console.log(sig.graph.edges())
+    // Ask sigma to draw it
+
+
+    // start layout
+    // sig.startForceAtlas2();
+    // setTimeout(() => { sig.stopForceAtlas2() }, Math.log(result.nodes.length * result.edges.length) * 1000);
+
+  </script>
+</body>
+
+</html>
