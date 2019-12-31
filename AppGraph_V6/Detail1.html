@@ -66,7 +66,7 @@ download.setAttribute("href", image);
       componentDidMount() {
         var config = {
           container_id: this.props.id,
-          server_url: "bolt://172.25.11.96:7687",
+          server_url: "bolt://localhost:7687",
           server_user: "neo4j",
           server_password: "12345",
           initial_cypher: this.props.query,
@@ -207,7 +207,7 @@ download.setAttribute("href", image);
         if (this.props.query !== prevProps.query) {
           var config = {
             container_id: this.props.id,
-            server_url: "bolt://172.25.11.96:7687",
+            server_url: "bolt://localhost:7687",
             server_user: "neo4j",
             server_password: "12345",
             initial_cypher: this.props.query,
@@ -470,8 +470,11 @@ download.setAttribute("href", image);
             <div className="animated fadeIn">
 
               <button className="down2">
-                <a className='anchor 	glyphicon glyphicon-save' download="circular.csv" href="static/img/circular.csv">
-                        </a>
+
+                <a className='anchor icon-cloud-download' download="Client Data Excel.xlsx" href="static/img/Client Data Excel.xlsx">
+
+                </a>
+
               </button>
 
 
@@ -533,10 +536,10 @@ download.setAttribute("href", image);
               <a class="nav-link" href="NEWS.html" style="padding: 12px 16px;">
                 <i class="nav-icon icon-globe"></i>News Data</a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a class="nav-link" href="WholeGraph.html">
-                <i class="nav-icon icon-target"></i> Analysis</a>
-            </li>
+                <i class="nav-icon icon-target"></i> Detailed Analysis</a>
+            </li> -->
             <li class="nav-item">
               <a class="nav-link" href="Visofall.html">
                 <i class="nav-icon icon-size-fullscreen"></i> All Data</a>
@@ -612,7 +615,7 @@ download.setAttribute("href", image);
                         Balance : 18.3 Lacs</p>
                       <hr style="margin: 5px; border-top: 2px solid #ddd;">
                       <p class="card-text" style="margin-top:1.5px; margin-bottom: 1.5px; margin-left:5px">Blacklisted:
-                        <i title="Blacklisted by NSDL" class="glyphicon glyphicon-flag" style="margin-left: 12px;"></i>
+                        <i title="Blacklisted by NSDL" class="glyphicon glyphicon-flag" style="color: red; margin-left: 12px;"></i>
                       </p>
 
                     </div>

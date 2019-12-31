@@ -46,7 +46,7 @@
       componentDidMount() {
         var config = {
           container_id: this.props.id,
-          server_url: "bolt://172.25.11.96:7687",
+          server_url: "bolt://localhost:7687",
           server_user: "neo4j",
           server_password: "12345",
           initial_cypher: this.props.query,
@@ -79,7 +79,7 @@
         if (this.props.query !== prevProps.query) {
           var config = {
             container_id: this.props.id,
-            server_url: "bolt://172.25.11.96:7687",
+            server_url: "bolt://localhost:7687",
             server_user: "neo4j",
             server_password: "12345",
             initial_cypher: this.props.query,
@@ -289,10 +289,10 @@
               <a class="nav-link" href="NEWS.html">
                 <i class="nav-icon icon-globe"></i>News Data</a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a class="nav-link" href="WholeGraph.html">
-                <i class="nav-icon icon-target"></i> Analysis</a>
-            </li>
+                <i class="nav-icon icon-target"></i> Detailed Analysis</a>
+            </li> -->
             <li class="nav-item">
               <a class="nav-link" href="Visofall.html">
                 <i class="nav-icon icon-size-fullscreen"></i> All Data</a>

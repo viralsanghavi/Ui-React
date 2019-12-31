@@ -159,8 +159,8 @@
           },
           "Address": {
             "returnAttributes": ["City", "State", "Street", "Pin Code"],
-            "constraintAttribute": "Street",
-            "autoExpandRelations": true,
+            "constraintAttribute": "State",
+            "autoExpandRelations": false,
           },
           "Trade": {
             "returnAttributes": ["Type", "Date", "Amount", "ISIN No", "Symbol", "Volume"],
@@ -310,7 +310,7 @@
 
 
         // Change the number of displayed results:
-        popoto.result.RESULTS_PAGE_SIZE = 450;
+        
         // Add a listener on returned result count to update count in page
         popoto.result.onTotalResultCount(function (count) {
           d3.select("#rescount").text(function (d) {
@@ -321,19 +321,39 @@
         var count = 1;
         // Add a listener on new relation added
         popoto.graph.on(popoto.graph.Events.GRAPH_NODE_RELATION_ADD, function (relations) {
-          var newRelation = relations[0];
-          // Collapse all expanded choose nodes first to avoid having value node in selection.
-          popoto.graph.node.collapseAllNode();
-          var linksToRemove = popoto.dataModel.links.filter(function (link) {
+        var newRelation = relations[0];
+
+        // Collapse all expanded choose nodes first to avoid having value node in selection.
+        popoto.graph.node.collapseAllNode();
+
+        var linksToRemove = popoto.dataModel.links.filter(function (link) {
             // All other links starting from same source node except new one.
             return link !== newRelation && link.source === newRelation.source;
-          });
-          linksToRemove.forEach(function (link) {
+        });
+
+        linksToRemove.forEach(function (link) {
             var willChangeResults = popoto.graph.node.removeNode(link.target);
             popoto.result.hasChanged = popoto.result.hasChanged || willChangeResults;
-          });
-          popoto.update();
         });
+
+        popoto.update();
+    });
+
+
+        // popoto.graph.on(popoto.graph.Events.GRAPH_NODE_RELATION_ADD, function (relations) {
+        //   var newRelation = relations[0];
+        //   // Collapse all expanded choose nodes first to avoid having value node in selection.
+        //   popoto.graph.node.collapseAllNode();
+        //   var linksToRemove = popoto.dataModel.links.filter(function (link) {
+        //     // All other links starting from same source node except new one.
+        //     return link !== newRelation && link.source === newRelation.source;
+        //   });
+        //   linksToRemove.forEach(function (link) {
+        //     var willChangeResults = popoto.graph.node.removeNode(link.target);
+        //     popoto.result.hasChanged = popoto.result.hasChanged || willChangeResults;
+        //   });
+        //   popoto.update();
+        // });
         // popoto.tools.TOGGLE_VIEW_RELATION = false;
 
         // popoto.tools.RESET_GRAPH = true;
@@ -384,11 +404,15 @@
         /**
          * Start popoto.js generation on first saved graph.
          */
-        popoto.query.RESULTS_PAGE_SIZE = 25;
+
+        popoto.query.RESULTS_PAGE_SIZE = 5000;
+        // Try for schema
+        popoto.start("Client");
+
 
 
         // Start the generation using parameter as root label of the query.
-        popoto.start("Client");
+        // popoto.start("Client");
       }
 
 
@@ -576,10 +600,10 @@
                 <i class="nav-icon icon-globe"></i>News Data</a>
             </li>
 
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a class="nav-link" href="WholeGraph.html">
-                <i class="nav-icon icon-target"></i> Analysis</a>
-            </li>
+                <i class="nav-icon icon-target"></i> Detailed Analysis</a>
+            </li> -->
             <li class="nav-item">
               <a class="nav-link" href="Visofall.html">
                 <i class="nav-icon icon-size-fullscreen"></i> All Data</a>

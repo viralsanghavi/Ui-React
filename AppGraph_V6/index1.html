@@ -24,7 +24,7 @@
   <script src="static/js/pace-progress/pace.min.js"></script>
   <script src="static/js/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
   <script src="static/js/%40coreui/coreui/dist/js/coreui.min.js"></script>
-  <script src="static/js/chatbot.js"></script>
+  <!-- <script src="static/js/chatbot.js"></script> -->
   <script src="reimg.js"></script>
   <script src="https://code.highcharts.com/highcharts.js"></script>
   <script src="https://code.highcharts.com/modules/exporting.js"></script>
@@ -37,13 +37,13 @@
   <script src="https://cdn.neo4jlabs.com/neovis.js/v1.2.1/neovis.js"></script>
 
   <!-- <script>
-  
-function download() {
-var download = document.getElementById("download");
-var image = document.getElementById("viz").toDataURL("image/png")
-download.setAttribute("href", image);
-//download.setAttribute("download","archive.png");
-}
+    
+    function download() {
+      var download = document.getElementById("download");
+      var image = document.getElementById("viz").toDataURL("image/png")
+      download.setAttribute("href", image);
+      //download.setAttribute("download","archive.png");
+    }
   </script> -->
   <script type="text/babel">
     class Visualization extends React.Component {
@@ -54,13 +54,17 @@ download.setAttribute("href", image);
       componentDidMount() {
         var config = {
           container_id: this.props.id,
-          server_url: "bolt://172.25.11.96:7687",
+          server_url: "bolt://localhost:7687",
           server_user: "neo4j",
           server_password: "12345",
           initial_cypher: this.props.query,
           arrows: true,
+          hover: true,
+          hoverConnectedEdges: true,
+          selectConnectedEdges: false,
           labels: {
             "Address": {
+              
               "caption": "first_name",
             },
             "Blacklist": {
@@ -195,12 +199,12 @@ download.setAttribute("href", image);
         if (this.props.query !== prevProps.query) {
           var config = {
             container_id: this.props.id,
-            server_url: "bolt://172.25.11.96:7687",
+            server_url: "bolt://localhost:7687",
             server_user: "neo4j",
             server_password: "12345",
             initial_cypher: this.props.query,
             arrows: true,
-            clickToUse: false,
+            
             labels: {
               "Address": {
                 "caption": "name",
@@ -347,7 +351,7 @@ download.setAttribute("href", image);
           height: "480px",
           border: "2px solid lightgray",
           font: "22pt Montserrat",
-
+          
         }
 
         return (
@@ -452,83 +456,82 @@ download.setAttribute("href", image);
             invalid_query = true
           }
         }
-
-        return (
-
-
-          <div className="container-fluid">
-            <div className="animated fadeIn">
+        
+          return (
 
 
+            <div className="container-fluid">
+              <div className="animated fadeIn">
 
 
-              <div className="App">
 
-                <div className="card">
-                  <div className="card-body" >
-                    <div width="100%" id="search-menu"> {/* search menu using parameterized query*/}
-                      <form className="form-group" onSubmit={this.handleSubmit} encType="multipart/form-data">
 
-                        <label>Entity type: </label><span>&nbsp; </span>
-                        <select name='query_entity' value={this.state.query_entity} onChange={this.handleChange}>
-                          <option value="indi">Individual</option>
-                          <option value="bro">Brokerage Member</option>
-                        </select>
-                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                        <label id="query_field_label">
-                          {/* For query field */}
-                          Query field:<span>&nbsp;</span>
-                          <select name='query_field' value={this.state.query_field} onChange={this.handleChange}>
-                            <option value="name">Name</option>
-                            <option value="pan">PAN</option>
-                            <option value="phone">Phone Number</option>
-                            <option value="email">Email ID</option>
+                <div className="App">
+
+                  <div className="card">
+                    <div className="card-body" >
+                      <div width="100%" id="search-menu"> {/* search menu using parameterized query*/}
+                        <form className="form-group" onSubmit={this.handleSubmit} encType="multipart/form-data">
+
+                          <label>Entity type: </label><span>&nbsp; </span>
+                          <select name='query_entity' value={this.state.query_entity} onChange={this.handleChange}>
+                            <option value="indi">Individual</option>
+                            <option value="bro">Brokerage Member</option>
                           </select>
-                        </label> <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                        <label id="query-space">
-                          <input type='text' name='query_text' id="display-text" placeholder="Search query" value={this.state.query_text} onChange={this.handleChange} />
-                        </label> <span>&nbsp;</span>
-                        <input type="submit" value="Search" />
-                        <span>&nbsp;</span> <button>
-                          <a className='anchor' href="Detail1.html">Detailed Report</a></button>
-                        <span>&nbsp;</span>
-                        
-                      </form>
-                      {/* <form onSubmit={this.handleCircularSubmit} encType="multipart/form-data">
+                          <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                          <label id="query_field_label">
+                            {/* For query field */}
+                            Query field:<span>&nbsp;</span>
+                            <select name='query_field' value={this.state.query_field} onChange={this.handleChange}>
+                              <option value="name">Name</option>
+                              <option value="pan">PAN</option>
+                              <option value="phone">Phone Number</option>
+                              <option value="email">Email ID</option>
+                            </select>
+                          </label> <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                          <label id="query-space">
+                            <input type='text' name='query_text' id="display-text" placeholder="Search query" value={this.state.query_text} onChange={this.handleChange} />
+                          </label> <span>&nbsp;</span>
+                          <input type="submit" value="Search" />
+                          <span>&nbsp;</span> <button>
+                            <a className='anchor' href="Detail1.html">Detailed Report</a></button>
+                          <span>&nbsp;</span>                   
+                        </form>
+                        {/* <form onSubmit={this.handleCircularSubmit} encType="multipart/form-data">
                               query search code pasted up
                             </form> */}
+                      </div>
                     </div>
                   </div>
-                </div>
-                {/* <p id="p-text"><strong>Search field: </strong> {this.state.query_text} </p> */}
-                {invalid_query && <p>Please only search for Brokerage Members by Name or SEBI No.</p>}
-                <div className="card ">
-                  <div className="Vis-container">
-                    {this.state.submission > 0 && <Visualization query={this.state.query} id="viz" />}
+                  {/* <p id="p-text"><strong>Search field: </strong> {this.state.query_text} </p> */}
+                  {invalid_query && <p>Please only search for Brokerage Members by Name or SEBI No.</p>}
+                  <div className="card ">
+                    <div className="Vis-container">
+                      {this.state.submission > 0 && <Visualization query={this.state.query} id="viz" />}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        );
-      }
+          );
+        }
 
-    } ReactDOM.render(
+      } ReactDOM.render(
       <Greeting />,
-      document.getElementById('root')
+    document.getElementById('root')
     );
   </script>
+
 
 </head>
 
 <body>
-
   <div class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
     <header class="app-header navbar">
       <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div style="">
+      <div>
         <img src="./static/img/logo_white.png" class="navbar-brand" alt="NseitLogo"
           style="width: 100px; height: 42.68px; margin-left: 10px;">
       </div>
@@ -563,10 +566,10 @@ download.setAttribute("href", image);
               <a class="nav-link" href="NEWS.html">
                 <i class="nav-icon icon-globe"></i>News Data</a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a class="nav-link" href="WholeGraph.html">
-                <i class="nav-icon icon-target"></i> Analysis</a>
-            </li>
+                <i class="nav-icon icon-target"></i> Detailed Analysis</a>
+            </li> -->
             <li class="nav-item">
               <a class="nav-link" href="Visofall.html">
                 <i class="nav-icon icon-size-fullscreen"></i> All Data</a>
