@@ -50,6 +50,10 @@
           server_user: "neo4j",
           server_password: "12345",
           initial_cypher: this.props.query,
+          arrows: true,
+          hover: true,
+          hoverConnectedEdges: true,
+          selectConnectedEdges: false,
           labels: {
             "Address": {
               "caption": "first_name",
@@ -190,6 +194,10 @@
             server_user: "neo4j",
             server_password: "12345",
             initial_cypher: this.props.query,
+            arrows: true,
+            hover: true,
+            hoverConnectedEdges: true,
+            selectConnectedEdges: false,
             labels: {
 
               "Address": {
@@ -479,14 +487,15 @@
       <div class="sidebar">
         <nav class="sidebar-nav">
           <ul class="nav">
-            <li class="nav-title">Stored Queries</li>
+
+            <li class="nav-title">Report</li>
             <li class="nav-item">
-              <a class="nav-link" href="index1.html">
+              <a class="nav-link" href="/index1.html">
                 <i class="nav-icon icon-user"></i> Client Profiling
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="circulartrading.html">
+              <a class="nav-link" href="/circulartrading.html">
                 <i class="nav-icon icon-refresh"></i> Circular Trading
               </a>
             </li>
@@ -503,9 +512,13 @@
                 <i class="nav-icon icon-globe"></i>News Data</a>
             </li>
             <!-- <li class="nav-item">
-              <a class="nav-link" href="WholeGraph.html">
-                <i class="nav-icon icon-target"></i> Detailed Analysis</a>
-            </li> -->
+    <a class="nav-link" href="WholeGraph.html">
+      <i class="nav-icon icon-target"></i> Detailed Analysis</a>
+  </li> -->
+            <li class="nav-item">
+              <a class="nav-link" href="FraudInsurance.html">
+                <i class="fa fa-car" ></i> <span>&nbsp;</span> Fraud Insurance</a>
+            </li>
             <li class="nav-item">
               <a class="nav-link" href="Visofall.html">
                 <i class="nav-icon icon-size-fullscreen"></i> All Data</a>

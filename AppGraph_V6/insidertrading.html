@@ -51,6 +51,9 @@
           server_password: "12345",
           initial_cypher: this.props.query,
           arrows: true,
+          hover: true,
+          hoverConnectedEdges: true,
+          selectConnectedEdges: false,
           labels: {
             "Client": {
               "caption": "Name",
@@ -83,7 +86,10 @@
             server_user: "neo4j",
             server_password: "12345",
             initial_cypher: this.props.query,
-            // arrows: true,
+            arrows: true,
+            hover: true,
+            hoverConnectedEdges: true,
+            selectConnectedEdges: false,
             labels: {
               "Client": {
                 "caption": "Name",
@@ -193,15 +199,16 @@
                   <div className="card-body" >
                     <div width="100%" id="search-menu"> {/* search menu using parameterized query*/}
                       <form className="form-group" onSubmit={this.handleSubmit} encType="multipart/form-data">
-
-                        <label>Number Of days </label><span>&nbsp; </span>
+                        <span>&nbsp; </span>
+                        <label>Number Of days </label>
+                        <span>&nbsp; </span>
                         <select name='query_entity' value={this.state.query_entity} onChange={this.handleChange}>
                           <option value="10">10 days</option>
                           <option value="8">8 days</option>
                         </select>
                         <span>&nbsp;</span>
 
-                        <span>&nbsp;&nbsp;&nbsp;</span>
+                        <span>&nbsp;</span>
                         <label id="query-space">
                         </label> <span>&nbsp;</span>
                         <input type="submit" value="Search" />
@@ -209,7 +216,6 @@
                         <button className="down1">
                           <a className='anchor glyphicon glyphicon-save' download="insider1.csv" href="static/img/insider1.csv">
                             <i className="fa fa-download" aria-hidden="true"></i>
-
                           </a>
                         </button>
 
@@ -263,9 +269,7 @@
       <div class="sidebar">
         <nav class="sidebar-nav">
           <ul class="nav">
-            <li class="nav-item">
 
-            </li>
             <li class="nav-title">Report</li>
             <li class="nav-item">
               <a class="nav-link" href="/index1.html">
@@ -290,9 +294,13 @@
                 <i class="nav-icon icon-globe"></i>News Data</a>
             </li>
             <!-- <li class="nav-item">
-              <a class="nav-link" href="WholeGraph.html">
-                <i class="nav-icon icon-target"></i> Detailed Analysis</a>
-            </li> -->
+    <a class="nav-link" href="WholeGraph.html">
+      <i class="nav-icon icon-target"></i> Detailed Analysis</a>
+  </li> -->
+            <li class="nav-item">
+              <a class="nav-link" href="FraudInsurance.html">
+                <i class="fa fa-car" ></i> <span>&nbsp;</span> Fraud Insurance</a>
+            </li>
             <li class="nav-item">
               <a class="nav-link" href="Visofall.html">
                 <i class="nav-icon icon-size-fullscreen"></i> All Data</a>
