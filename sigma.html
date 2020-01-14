@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>sigma.js</title>
+  <!-- scripts -->
+  <!-- <script src="https://unpkg.com/neo4j-driver"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/neo4j-driver"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sigma.js/1.2.1/sigma.min.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/neo4j-driver@1.5.3/lib/browser/neo4j-web.min.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sigma.js/1.2.1/plugins/sigma.parsers.json.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sigma.js/1.2.1/plugins/sigma.neo4j.cypher.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sigma.js/1.2.1/plugins/sigma.layout.forceAtlas2.min.js"></script>
+  <style>
+    #graph-container {
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      position: absolute;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <div id="graph-container"></div>
+  </div>
+
+  <script type="application/javascript">
+
+    var driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic('neo4j', '12345'))
+    var session = driver.session({ defaultAccessMode: neo4j.session.READ })
+
+    // var s = new sigma(
+    //     {
+    //        renderer: {
+    //          container: document.getElementById('graph-container'),
+    //          type: 'canvas'
+    //        },
+    //        settings: {
+
+
+
+    //        }
+    //      }
+    //    );
+    //     var s = new sigma(
+    //   {
+    //     renderer: {
+    //       container: document.getElementById('graph-container'),
+    //       type: 'canvas'
+    //     },
+    //     settings: {
+    //      minEdgeSize: 0.1,
+    //      maxEdgeSize: 2,
+    //      minNodeSize: 1,
+    //      maxNodeSize: 8,
+    //     }
+    //   }
+    // );
+  var query = session.run('MATCH (n) RETURN n')
+      .then(function (result) {
+        var sig = new sigma({
+          graph: result,
+          renderer: {
+            container: document.getElementById('graph-container')
+          },
+          settings: {
+            autorescale: false,
+            edgeLabelThreshold: 1,
+            drawEdgeLabels: true,
+            // edgeLabelSize: 'fixed',
+            // defaultEdgeLabelSize: 8,
+            // enableEdgeHovering: true,
+            // edgeHoverExtremities: true,
+            minArrowSize: 10
+          }
+        });
+        // start layout
+        // sig.startForceAtlas2();
+        // setTimeout(() => { sig.stopForceAtlas2() }, Math.log(result.nodes.length * result.edges.length) * 1000);
+        // sig.graph.read(result);
+        // Generate a random graph:
+        var nbNode = 5;
+        var nbEdge = 100;
+        var graph = {
+          nodes: [],
+          edges: []
+        };
+        for (i = 0; i < nbNode; i++)
+          graph.nodes.push({
+            id: i,
+            label: 'Node ' + i,
+            x: Math.random(),
+            y: Math.random(),
+            size: 1,
+            color: '#EE651D'
+          });
+          
+        for (i = 0; i < nbEdge; i++)
+          graph.edges.push({
+            id: i,
+            source: '' + (Math.random() * nbNode | 0),
+            target: '' + (Math.random() * nbNode | 0),
+            color: '#202020',
+            type: 'curvedArrow'
+          });          
+          console.log(nbNode);
+        // Load the graph in sigma
+        sig.graph.read(graph);
+        // Ask sigma to draw it
+        sig.refresh();
+      });
+
+  </script>
+</body>
+
+</html>
