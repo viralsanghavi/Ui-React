@@ -12,6 +12,9 @@
  * Copyright 2011-2018 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
+ .Vis-container{
+   background-color: gray;
+ }
  #display-text{
    font-size: 0.75rem;
  }
@@ -11038,7 +11041,6 @@ canvas {
 *[dir="rtl"] .nav {
   padding-right: 0;
 }
-
 .app-header {
   position: relative;
   -ms-flex-direction: row;
@@ -11050,7 +11052,8 @@ canvas {
   border-bottom: 1px solid #2f353a;
 }
 
-.app-header .navbar-brand {
+
+ .navbar-brand {
   display: -ms-inline-flexbox;
   display: inline-flex;
   -ms-flex-align: center;
@@ -11159,6 +11162,7 @@ canvas {
     width: 50px;
     background-color: transparent;
   }
+  
   .brand-minimized .app-header .navbar-brand .navbar-brand-full {
     display: none;
   }

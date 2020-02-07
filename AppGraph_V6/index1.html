@@ -16,7 +16,9 @@
   <link href="static/css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
   <link href="static/css/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
   <link href="static/css/style.css" rel="stylesheet">
-
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
   <!-- javascript -->
   <script src="static/js/popper.js/dist/umd/popper.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -24,28 +26,18 @@
   <script src="static/js/pace-progress/pace.min.js"></script>
   <script src="static/js/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
   <script src="static/js/%40coreui/coreui/dist/js/coreui.min.js"></script>
-  <!-- <script src="static/js/chatbot.js"></script> -->
-  <script src="reimg.js"></script>
+
   <script src="https://code.highcharts.com/highcharts.js"></script>
   <script src="https://code.highcharts.com/modules/exporting.js"></script>
   <script src="https://code.highcharts.com/modules/export-data.js"></script>
-  <!-- <script src="scripts/d3.min.js"></script> -->
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reactstrap/4.8.0/reactstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
   <script src="https://cdn.neo4jlabs.com/neovis.js/v1.2.1/neovis.js"></script>
-
-  <!-- <script>
-    
-    function download() {
-      var download = document.getElementById("download");
-      var image = document.getElementById("viz").toDataURL("image/png")
-      download.setAttribute("href", image);
-      //download.setAttribute("download","archive.png");
-    }
-  </script> -->
   <script type="text/babel">
+
     class Visualization extends React.Component {
       // constructor(props) {
       // 	super(props)
@@ -370,14 +362,39 @@
         )
       }
     }
+    // Ways of using a bootstrap element into this
+
+    const Nav = () =>
+    <div>
+	
+      <button type="button" className="btn btn-light" aria-pressed="true">Overview</button>
+      <button type="button" className="btn btn-light" aria-pressed="true">Shareholding Pattern</button>
+      <button type="button" className="btn btn-light" aria-pressed="true">Promoters Pledge</button>
+      <button type="button" className="btn btn-light" aria-pressed="true">Board Meetings	</button>
+      <button type="button" className="btn btn-light" aria-pressed="true">Corporate Governance	</button>
+      <button type="button" className="btn btn-light" aria-pressed="true">Corporate Actions</button>
+      <button type="button" className="btn btn-light" aria-pressed="true"> Detailed Report<a href="Detail.html"></a> </button>
+      </div>;
+    class InfoCard extends React.Component {
+      constructor() {
+        super()
+      }
+      render() {
+        return (
+          <div className="Button">
+            <p>ads</p>
+
+          </div>
+        )
+      }
+    }
 
     class Greeting extends React.Component {
       constructor() {
         super()
         this.state = {
-          query_property: "",
           query_entity: "indi",
-          query_field: "name", // individual, name by default
+          query_results: "", // default is empty string, but set as an key:value object to pass down as a prop to the InfoCard container 
           query_text: "",
           query: "", // pass down as a prop to the Visualization component
           submission: 0,// count of how many times user has queried,
@@ -424,56 +441,16 @@
           // q9: `MATCH (n) return n`,
         }
         if (this.state.query_entity === 'indi') {
-          if (this.state.query_field === 'name') {
-            this.setState({ query: queries.q1 })
-          } else
-            if (this.state.query_field === 'pan') {
-              this.setState({ query: queries.q2 })
-            } else
-              if (this.state.query_field === 'phone') {
-                this.setState({ query: queries.q4 })
-              } else
-                if (this.state.query_field === 'email') {
-                  this.setState({ query: queries.q5 })
-                }
-        } else
-          if (this.state.query_entity === 'bro') {
-            if (this.state.query_field === 'name') {
-              this.setState({ query: queries.q6 })
-            } else
-              if (this.state.query_field === 'pan') {
-                this.setState({ query: queries.q2 })
-              } else
-                if (this.state.query_field === 'phone') {
-                  this.setState({ query: queries.q4 })
-                } else
-                  if (this.state.query_field === 'email') {
-                    this.setState({ query: queries.q5 })
-                  }
-          } else
-            if (this.state.query_entity === 'Company') {
-              if (this.state.query_field === 'name') {
-                this.setState({ query: queries.q6 })
-              } else
-                if (this.state.query_field === 'pan') {
-                  this.setState({ query: queries.q2 })
-                } else
-                  if (this.state.query_field === 'phone') {
-                    this.setState({ query: queries.q4 })
-                  } else
-                    if (this.state.query_field === 'email') {
-                      this.setState({ query: queries.q5 })
-                    }
-            }
+          this.setState({ query: queries.q1 })
+        } else if (this.state.query_entity === 'bro') {
+          this.setState({ query: queries.q6 })
+        }
+
         this.setState({ submission: this.state.submission + 1 })
+        //this.setState( {query_results}:  ) should contain an object with the returned results of the query i.e. contact info, can pass this down as a prop to the info card
       }
       render() {
-        var invalid_query = false // maybe could be a state variable
-        if (this.state.query_entity === 'bro') {
-          if ((this.state.query_field === 'location') || (this.state.query_field === 'pan')) {
-            invalid_query = true
-          }
-        }
+
 
         return (
 
@@ -493,28 +470,22 @@
 
                         <label>Entity type: </label><span>&nbsp; </span>
                         <select name='query_entity' value={this.state.query_entity} onChange={this.handleChange}>
-                          <option value="indi">Individual</option>
+                          <option value="indi" className="indi">Individual</option>
                           <option value="bro">Brokerage Member</option>
-                       </select>
+                          <option value="Company">Company</option>
+                        </select>
                         <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                        <label id="query_field_label">
-                          {/* For query field */}
-                          Query field:<span>&nbsp;</span>
-                          <select name='query_field' value={this.state.query_field} onChange={this.handleChange}>
-                            <option value="name">Name</option>
-                            <option value="pan">PAN</option>
-                            <option value="phone">Phone Number</option>
-                            <option value="email">Email ID</option>
-                          </select>
-                        </label> <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                         <label id="query-space">
                           <input type='text' name='query_text' id="display-text" placeholder="Search query" value={this.state.query_text} onChange={this.handleChange} />
                         </label> <span>&nbsp;</span>
                         <input type="submit" value="Search" />
-                        <span>&nbsp;</span> <button>
-                          <a className='anchor' href="Detail1.html">Detailed Report</a></button>
+                        <span>&nbsp;</span>
+                       
+
+
                         <span>&nbsp;</span>
                       </form>
+                      <Nav />
                       {/* <form onSubmit={this.handleCircularSubmit} encType="multipart/form-data">
                               query search code pasted up
                             </form> */}
@@ -522,9 +493,15 @@
                   </div>
                 </div>
                 {/* <p id="p-text"><strong>Search field: </strong> {this.state.query_text} </p> */}
-                {invalid_query && <p>Please only search for Brokerage Members by Name</p>}
+                <div className="card">
+                  <div className="info-container">
+                    {this.state.submission > 0 && <InfoCard results={this.state.query_results} />}
+
+                  </div>
+                </div>
                 <div className="card ">
                   <div className="Vis-container">
+
                     {this.state.submission > 0 && <Visualization query={this.state.query} id="viz" />}
                   </div>
                 </div>
@@ -553,82 +530,31 @@
         <img src="./static/img/logo_white.png" class="navbar-brand" alt="NseitLogo"
           style="width: 100px; height: 42.68px; margin-left: 10px;">
       </div>
-      <h1 id="head-title" style=" color: azure; margin-right: 40%;"> NSE Client Profiling </h1>
-
     </header>
+
     <div class="app-body">
       <div class="sidebar">
         <nav class="sidebar-nav">
           <ul class="nav">
-
-              <li class="nav-title">Report</li>
-              <li class="nav-item">
-                  <a class="nav-link" href="/index1.html">
-                      <i class="nav-icon icon-user"></i> Client Profiling
-                  </a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="/circulartrading.html">
-                      <i class="nav-icon icon-refresh"></i> Circular Trading
-                  </a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="insidertrading.html">
-                      <i class="nav-icon icon-map"></i> Insider Trading</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="tweet.html">
-                      <i class="nav-icon icon-social-twitter"></i>Tweets Data</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="NEWS.html">
-                      <i class="nav-icon icon-globe"></i>News Data</a>
-              </li>
-              <!-- <li class="nav-item">
-    <a class="nav-link" href="WholeGraph.html">
-      <i class="nav-icon icon-target"></i> Detailed Analysis</a>
-  </li> -->
-              <li class="nav-item">
-                  <a class="nav-link" href="FraudInsurance.html">
-                    <i class="fa fa-car" ></i> <span>&nbsp;</span> Fraud Insurance</a>
-                  </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="Visofall.html">
-                      <i class="nav-icon icon-size-fullscreen"></i> All Data</a>
-              </li>
+            <li class="nav-title">Report</li>
+            <li class="nav-item">
+              <a class="nav-link" href="/index1.html">
+                <i class="nav-icon icon-user"></i> Client Profiling
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="Visofall.html">
+                <i class="nav-icon icon-size-fullscreen"></i> All Data</a>
+            </li>
           </ul>
-      </nav>
+        </nav>
       </div>
-
       <main class="main">
-
-
-
-
-
-
         <div id="root"></div>
-
-
-
-
-
-
       </main>
-
-
-
     </div>
-
   </div>
-
-
-
-
-
   </div>
-
-
 </body>
 
 </html>
