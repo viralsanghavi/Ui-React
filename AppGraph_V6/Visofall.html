@@ -54,141 +54,60 @@
           hover: true,
           hoverConnectedEdges: true,
           selectConnectedEdges: false,
+          shape: 'ellipse',
           // arrows: true,
           labels: {
-            "Address": {
-              "caption": "first_name",
-            },
-            "Blacklist": {
-              "caption": "first_name",
-            },
-            "Broker": {
-              "caption": "first_name",
-            },
-            "Brokercompany": {
-              "caption": "first_name",
-            },
             "Client": {
-              "caption": "first_name",
+              "caption": "Name",
+              "birthday": "DOB",
+              "gender": "Gender",
+              "email": "email",
+              "mobile": "mobile",
+              "pan": "Pan",
+              "aadhar": "Aadhar",
+              "photo": "photo",
+              "signature": "signature",
+              "size": 3.0,
+              "icon": ""
+
             },
-            "Company": {
-              "caption": "first_name",
+            "Bank": {
+              "caption": "Bank_Name",
+              "account_no": "account_no",
+              "branch": "branch",
             },
-            "DailyBalance": {
-              "caption": "first_name",
+            "Demat": {
+              "caption": "demat_account_id",
+              "depository": "depository",
+              "demat_account_ipo": "demat_account_ipo",
             },
-            "Email": {
-              "caption": "first_name",
+            "Client_Financial_Proof": {
+              "caption": "Financial Proof",
+              "proof_type": "financial_proof",
+              "aadhar": "aadhar_bin",
+              "pan": "pan_bin",
             },
-            "Event": {
-              "caption": "first_name",
-            },
-            "Events": {
-              "caption": "first_name",
-            },
-            "Exchange Company": {
-              "caption": "first_name",
-            },
-            "FinancialOverview": {
-              "caption": "first_name",
-            },
-            "FundsBalance": {
-              "caption": "first_name",
-            },
-            "MonthlyBalance": {
-              "caption": "first_name",
-            },
-            "MonthlyTrade": {
-              "caption": "first_name",
-            },
-            "MonthlyTransaction": {
-              "caption": "first_name",
-            },
-            "Newsfeed": {
-              "caption": "first_name",
-            },
-            "Pan": {
-              "caption": "first_name",
-            },
-            "PhoneNumber": {
-              "caption": "first_name",
-            },
-            "SecurityBalance": {
-              "caption": "first_name",
-            },
-            "Trade": {
-              "caption": "first_name",
-            },
-            "Twitter": {
-              "caption": "first_name",
-            },
-            "Agenda":{
-              "caption": "Purpose",
-            },
-            "Company":{
-              "caption":"Name"
+            "Trade_Data": {
+              "caption": "Balances",
             }
           },
           relationships: {
-            "CORPORATE_EVENT": {
-              "caption": false,
+            "Bank_Details": {
+              "caption": true,
+              "community": "Yellow"
             },
-            "FINANCIAL_HISTORY": {
-              "caption": false,
+            "Demat": {
+              "caption": true,
             },
-            "HAS_ACTIONS": {
-              "caption": false,
+            "Proofs_Submitted": {
+              "caption": true,
             },
-            "HAS_ADDRESS": {
+            "Account_Activity": {
               "caption": false,
+              "color": "green",
             },
-            "HAS_BALANCE": {
+            "Notification": {
               "caption": false,
-            },
-            "HAS_EMAILID": {
-              "caption": false,
-            },
-            "HAS_MONTHLY_TRADE": {
-              "caption": false,
-            },
-            "HAS_MONTHLY_TRANSACTION": {
-              "caption": false,
-            },
-            "HAS_PAN_NO": {
-              "caption": false,
-            },
-            "HAS_PHONENUMBER": {
-              "caption": false,
-            },
-            "IS_BLACKLISTED": {
-              "caption": false,
-            },
-            "IS_BROKER": {
-              "caption": false,
-            },
-            "IS_BUYING": {
-              "caption": false,
-            },
-            "IS_MEMBER": {
-              "caption": false,
-            },
-            "IS_SELLING": {
-              "caption": false,
-            },
-            "IS_TRADING": {
-              "caption": false,
-            },
-            "THROUGH": {
-              "caption": false,
-            },
-            "TWEETS": {
-              "caption": false,
-            },
-            "UPDATES": {
-              "caption": false,
-            },
-            "Trade_window":{
-              "caption":false,
             }
           },
         }
@@ -369,7 +288,6 @@
             id={this.props.id}
             style={style}
           />
-
         )
       }
     }
@@ -493,15 +411,12 @@
           else {
             this.setState({ query: queries.q8 })
           }
-
         this.setState({ submission: this.state.submission + 1 })
       }
 
       handleCircularSubmit(event) {
         event.preventDefault()
         var circular_query = "MATCH (a:AccountHolder)-[:HAS_ADDRESS]->(add:Address)<-[:HAS_ADDRESS]-(b:AccountHolder) OPTIONAL MATCH (a)-[:BUY_ORDER]->(s1:ShareDetail) OPTIONAL MATCH (b)-[:SELL_ORDER]->(s2:ShareDetail) WITH a, b, s1, s2, add WHERE (s1.BuyingSharesOf = s2.SellingSharesOf) AND (5 > toInteger(split(s1.Trading_Date, '/')[0]) - toInteger(split(s2.Trading_Date,'/')[0]) > 0) RETURN a, b, s1, s2"
-
-
         this.setState({ query: circular_query })
         this.setState({ submission: this.state.submission + 1 })
       }
@@ -522,28 +437,17 @@
         }
 
         return (
-
-
           <div className="container-fluid">
             <div className="animated fadeIn">
-
-
-
-
               <div className="App">
-
                 {/* <p id="p-text"><strong>Search field: </strong> {this.state.query_text} </p> */}
                 {invalid_query && <p>Please only search for Brokerage Members by Name or SEBI No.</p>}
                 <div className="card-body" >
                 </div>
                 <div className="card ">
                   <div className="Vis-container">
-                    <button className="down">
-                      <a className='anchor glyphicon glyphicon-save' download="Alldata.csv" href="static/img/Alldata.csv">
-                        <i className="fa fa-download" aria-hidden="true"></i>
-                      </a>
-                    </button>
-                    <Visualization query={"Match (n)-[a]->(b) return *"} id="viz" />
+                   
+                    <Visualization query={"Match (n) return *"} id="viz" />
                   </div>
                 </div>
               </div>
@@ -556,11 +460,9 @@
       document.getElementById('root')
     );
   </script>
-
 </head>
 
 <body>
-
   <div class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
     <header class="app-header navbar">
       <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
@@ -570,81 +472,30 @@
         <img src="./static/img/logo_white.png" class="navbar-brand" alt="NseitLogo"
           style="width: 100px; height: 42.68px; margin-left: 10px;">
       </div>
-
-
     </header>
     <div class="app-body">
       <div class="sidebar">
         <nav class="sidebar-nav">
           <ul class="nav">
-
-              <li class="nav-title">Report</li>
-              <li class="nav-item">
-                  <a class="nav-link" href="/index1.html">
-                      <i class="nav-icon icon-user"></i> Client Profiling
-                  </a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="/circulartrading.html">
-                      <i class="nav-icon icon-refresh"></i> Circular Trading
-                  </a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="insidertrading.html">
-                      <i class="nav-icon icon-map"></i> Insider Trading</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="tweet.html">
-                      <i class="nav-icon icon-social-twitter"></i>Tweets Data</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="NEWS.html">
-                      <i class="nav-icon icon-globe"></i>News Data</a>
-              </li>
-              <!-- <li class="nav-item">
-    <a class="nav-link" href="WholeGraph.html">
-      <i class="nav-icon icon-target"></i> Detailed Analysis</a>
-  </li> -->
-              <li class="nav-item">
-                  <a class="nav-link" href="FraudInsurance.html">
-                    <i class="fa fa-car" ></i> <span>&nbsp;</span> Fraud Insurance</a>
-                  </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="Visofall.html">
-                      <i class="nav-icon icon-size-fullscreen"></i> All Data</a>
-              </li>
+            <li class="nav-title">Report</li>
+            <li class="nav-item">
+              <a class="nav-link" href="/index1.html">
+                <i class="nav-icon icon-user"></i> Client Profiling
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="Visofall.html">
+                <i class="nav-icon icon-size-fullscreen"></i> All Data</a>
+            </li>
           </ul>
-      </nav>
+        </nav>
       </div>
-
       <main class="main">
-
-
-
-
-
         <div id="root"></div>
-
-
-
-
-
-
       </main>
-
-
-
     </div>
-
   </div>
-
-
-
-
-
   </div>
-
-
 </body>
 
 </html>

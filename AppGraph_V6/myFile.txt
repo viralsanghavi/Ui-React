@@ -1,0 +1,3 @@
+Match (broker:Company)
+        where (broker.Name Contains'Gail')
+            RETURN *

@@ -22,14 +22,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/popoto/dist/popoto.min.css">
   <!-- javascript -->
-  <script src="static/js/charts.js"></script>
   <script src="static/js/popper.js/dist/umd/popper.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="static/bootstrap/js/bootstrap.min.js"></script>
   <script src="static/js/pace-progress/pace.min.js"></script>
   <script src="static/js/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
   <script src="static/js/%40coreui/coreui/dist/js/coreui.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/react-bootstrap/0.33.1/react-bootstrap.min.js"></script>
 
   <script src="https://code.highcharts.com/highcharts.js"></script>
   <script src="https://code.highcharts.com/modules/exporting.js"></script>
@@ -311,36 +309,19 @@
 
     const Nav = () =>
       <div>
-        <a href="index1.html" className="btn btn-primary btn-sm active" role="button" aria-pressed="true">Overview</a> &nbsp;
+        <a href="index1.html" className="btn btn-secondary btn-sm active" role="button" aria-pressed="true">Overview</a> &nbsp;
         <a href="#" className="btn btn-secondary btn-sm active" role="button" aria-pressed="true" href="Shareholding.html">Shareholding Pattern</a>&nbsp;
-        <a href="#" className="btn btn-secondary btn-sm active" role="button" aria-pressed="true" href="BoardMeetings.html">Board Meetings</a>&nbsp;
+        <a href="#" className="btn btn-primary btn-sm active" role="button" aria-pressed="true" href="BoardMeetings.html">Board Meetings</a>&nbsp;
         <a href="#" className="btn btn-secondary btn-sm active" role="button" aria-pressed="true" href="PromotorsPledge.html">Promoters Pledge</a>&nbsp;
         <a href="#" className="btn btn-secondary btn-sm active" role="button" aria-pressed="true" href="CorporateGovernance.html">Corporate Governance</a>&nbsp;
-        <a href="#" className="btn btn-secondary btn-sm active" role="button" aria-pressed="true" href="CorporateActions.html">Corporate Actions</a>&nbsp;
-      </div>;
+        <a href="#" className="btn btn-secondary btn-sm active" role="button" aria-pressed="true" href="CorporateActions.html">Corporate Actions</a>&nbsp;    </div>;
 
     const IndiNav = () =>
       <div className="Individual">
         <a href="#" className="btn btn-secondary btn-sm active" role="button" aria-pressed="true">Overview</a>  &nbsp;
-        <a href="#" className="btn btn-secondary btn-sm active" role="button" aria-pressed="true">Client Profile</a>  &nbsp;
-        <a href="#" className="btn btn-secondary btn-sm active" role="button" aria-pressed="true">Trade Data</a>&nbsp;
-        <a href="#" className="btn btn-secondary btn-sm active" role="button" aria-pressed="true">Client Holdings</a>  &nbsp;
-        <a href="#" className="btn btn-secondary btn-sm active" role="button" aria-pressed="true">Blacklisted Pan</a>&nbsp;
-        <a href="#" className="btn btn-secondary btn-sm active" role="button" aria-pressed="true">Alerts</a>  &nbsp;
-        <a href="#" className="btn btn-secondary btn-sm active" role="button" aria-pressed="true">Balances</a>&nbsp;
-        <a href="#" className="btn btn-secondary btn-sm active" role="button" aria-pressed="true">Monthly Balances</a>&nbsp;
-        <a href="#" className="btn btn-secondary btn-sm active" role="button" aria-pressed="true">M2M Losses</a>
+        <a href="Detail1.html" className="btn btn-secondary btn-sm active" role="button" aria-pressed="true">Detailed Report</a>
       </div>;
 
-      const BrokerNav = () =>
-      <div>
-        <a href="index1.html" className="btn btn-primary btn-sm active" role="button" aria-pressed="true">Overview</a> &nbsp;
-        <a href="#" className="btn btn-secondary btn-sm active" role="button" aria-pressed="true" href="Shareholding.html">Shareholding Pattern</a>&nbsp;
-        <a href="#" className="btn btn-secondary btn-sm active" role="button" aria-pressed="true" href="BoardMeetings.html">Board Meetings</a>&nbsp;
-        <a href="#" className="btn btn-secondary btn-sm active" role="button" aria-pressed="true" href="PromotorsPledge.html">Promoters Pledge</a>&nbsp;
-        <a href="#" className="btn btn-secondary btn-sm active" role="button" aria-pressed="true" href="CorporateGovernance.html">Corporate Governance</a>&nbsp;
-        <a href="#" className="btn btn-secondary btn-sm active" role="button" aria-pressed="true" href="CorporateActions.html">Corporate Actions</a>&nbsp;
-      </div>;
 
     class IndiInfoCard extends React.Component {
       //constructor(props) {
@@ -379,20 +360,20 @@
       }
     }
     <div>
-            <div>
-              <p><img src="../static/img/person.jpg" className="Person" alt="Person Image" />
-                <strong className="Name">Rahul Sharma  </strong>  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <strong> </strong> &nbsp; &nbsp; &nbsp; &nbsp;
+      <div>
+        <p><img src="../static/img/person.jpg" className="Person" alt="Person Image" />
+          <strong className="Name">Rahul Sharma  </strong>  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <strong> </strong> &nbsp; &nbsp; &nbsp; &nbsp;
          <strong>  </strong>8080626605  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Manabai Building Dadar   &nbsp; &nbsp; &nbsp; &nbsp; <strong></strong>
-              </p>
-              <p className="phonenumber"> rahul.sharma@gmail.com</p>
-            </div>
-            <div className="icons">
-              <a href="#" className="fa fa-facebook"></a>
-              <a href="#" className="fa fa-twitter"></a>
-              <a href="#" className="fa fa-linkedin"></a>
-            </div>
-          </div>
- 
+        </p>
+        <p className="phonenumber"> rahul.sharma@gmail.com</p>
+      </div>
+      <div className="icons">
+        <a href="#" className="fa fa-facebook"></a>
+        <a href="#" className="fa fa-twitter"></a>
+        <a href="#" className="fa fa-linkedin"></a>
+      </div>
+    </div>
+
 
 
     class CompanyInfoCard extends React.Component {
@@ -432,27 +413,27 @@
       }
     }
     <div>
-            <div>
-              <p><img src="../static/img/person.jpg" className="Person" alt="Person Image" />
-                <strong className="Name">Tata Consultancy Services  </strong>  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <strong> </strong> &nbsp; &nbsp; &nbsp; &nbsp;
+      <div>
+        <p><img src="../static/img/person.jpg" className="Person" alt="Person Image" />
+          <strong className="Name">Tata Consultancy Services  </strong>  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <strong> </strong> &nbsp; &nbsp; &nbsp; &nbsp;
          <strong>  </strong>+91-22-6778 9595  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;TCS House, Raveline Street, Fort   &nbsp; &nbsp; &nbsp; &nbsp; <strong></strong>
-              </p>
-              <p className="phonenumber"> contact.us@tcs.com</p>
-            </div>
-            <div className="icons">
-              <a href="#" className="fa fa-facebook"></a>
-              <a href="#" className="fa fa-twitter"></a>
-              <a href="#" className="fa fa-linkedin"></a>
-            </div>
-          </div>
- 
+        </p>
+        <p className="phonenumber"> contact.us@tcs.com</p>
+      </div>
+      <div className="icons">
+        <a href="#" className="fa fa-facebook"></a>
+        <a href="#" className="fa fa-twitter"></a>
+        <a href="#" className="fa fa-linkedin"></a>
+      </div>
+    </div>
+
 
 
     class Greeting extends React.Component {
       constructor() {
         super()
         this.state = {
-          query_entity: "indi",
+          query_entity: "Company",
           query_results: "", // default is empty string, but set as an key:value object to pass down as a prop to the InfoCard container
           query_text: "",
           query: "", // pass down as a prop to the Visualization component
@@ -479,7 +460,7 @@
 
 
       exportQuery() {
-        if (this.state.query  != "") {
+        if (this.state.query != "") {
           console.log(this.state.query)
           var hiddenElement = document.createElement('a');
           var currentQuery = this.state.query
@@ -517,15 +498,15 @@
         OPTIONAL MATCH  (n)<-[r1]-(m)-[r]->(email)
             RETURN *` ,
 
-          q6: `Match (broker:Company)
-        where (broker.Name Contains'${this.state.query_text}')
+          q6: `Match (broker:Broker)-[r]->(m)
+        where (broker.name Contains'${this.state.query_text}')
             RETURN *` ,
           // q9: `MATCH (n) return n`,
           // need to put in correct queries per new data model
         }
         if (this.state.query_entity === 'indi') {
           this.setState({ query: queries.q1 })
-        } else if (this.state.query_entity === 'Company') {
+        } else if (this.state.query_entity === 'bro') {
           this.setState({ query: queries.q6 })
         }
         var driver = neo4j.driver(
@@ -572,9 +553,7 @@
                         <span>&nbsp;</span>
                         <span>&nbsp;</span>
                       </form>
-
                       {this.state.query_entity == 'indi' ? <IndiNav /> : <Nav />}
-
                       {/* <form onSubmit={this.handleCircularSubmit} encType="multipart/form-data">
                               query search code pasted up
                             </form> */}
@@ -584,7 +563,7 @@
                 {/* <p id="p-text"><strong>Search field: </strong> {this.state.query_text} </p> */}
                 <div className="card">
                   <div className="info-container">
-                    {this.state.submission > 0 && (this.state.query_entity == 'indi' ? <IndiInfoCard results={this.state.query_results}/> : <CompanyInfoCard results={this.state.query_results}/>)}
+                    {this.state.submission > 0 && (this.state.query_entity == 'indi' ? <IndiInfoCard results={this.state.query_results} /> : <CompanyInfoCard results={this.state.query_results} />)}
                   </div>
                 </div>
                 <div className="card ">
@@ -639,7 +618,6 @@
       </div>
       <main class="main">
         <div id="root"></div>
-       
       </main>
     </div>
   </div>
